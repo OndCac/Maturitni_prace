@@ -24,7 +24,8 @@
                 <li class="aktivni"><a href="index.php">Homepage</a></li>
                 <?php 
                     if ($_SESSION["logged_in"]) {
-                        echo "<li><a href='lec_list.php'>Lecturers</a></li>";
+                        echo "<li><a href='lec_list.php'>Lecturers</a></li>"
+                        . "<li class='logout-button'><a href='logout.php'>Log out</a></li>";
                     } else {
                         echo '<li><a href="registration.php">Registration</a></li>' 
                         . '<li><a href="login.php">Login</a></li>';

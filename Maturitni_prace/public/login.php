@@ -3,6 +3,45 @@
     define("BR", "<br/>\n");
 
     session_start();
+
+    if ($_SESSION["logged_in"]) {
+        echo "<li><a href='lec_list.php'>Lecturers</a></li>";
+        echo "<li><input class='logout-button' type='submit' value='Log out'>Log out</li>";
+    } else {
+        echo '<li><a href="registration.php">Registration</a></li>';
+    }
+
+    if (isset($_POST["email"])) {
+    $host="localhost";
+    $port=3306;
+    $socket="";
+    $user="root";
+    $password="root"; // nutne spravne heslo
+    $dbname="TeacherDigitalAgency";
+
+    $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+        or die ('Could not connect to the database server' . mysqli_connect_error());
+
+    $sql = "SELECT * FROM TeacherDigitalAgency.User where Email = '" . $_POST["email"] . "'";
+
+    if (!$con->query($sql)) {
+        echo "error:".mysqli_error($con).BR;
+    } else {
+        $result = mysqli_fetch_assoc($con->query($sql));
+        
+        if($result["Password"] == $_POST["password"]) {
+            echo "successful login".BR;
+            $_SESSION["logged_in"] = true;
+            header("Location: index.php");
+        } else {
+            echo "wrong password".BR;
+        }
+    }
+
+    $con->close();
+
+    exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +60,7 @@
                 <?php 
                     if ($_SESSION["logged_in"]) {
                         echo "<li><a href='lec_list.php'>Lecturers</a></li>";
+                        echo "<li><input class='logout-button' type='submit' value='Log out'>Log out</li>";
                     } else {
                         echo '<li><a href="registration.php">Registration</a></li>';
                     }
@@ -31,39 +71,6 @@
     </header>
     
     <article>
-        <?php
-            if (isset($_POST["email"])) {
-                $host="localhost";
-                $port=3306;
-                $socket="";
-                $user="root";
-                $password="root"; // nutne spravne heslo
-                $dbname="TeacherDigitalAgency";
-                
-                $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
-                    or die ('Could not connect to the database server' . mysqli_connect_error());
-                
-                $sql = "SELECT * FROM TeacherDigitalAgency.User where Email = '" . $_POST["email"] . "'";
-                
-                if (!$con->query($sql)) {
-                    echo "error:".mysqli_error($con).BR;
-                } else {
-                    $result = mysqli_fetch_assoc($con->query($sql));
-                    
-                    if($result["Password"] == $_POST["password"]) {
-                        echo "successful login".BR;
-                        $_SESSION["logged_in"] = true;
-                    } else {
-                        echo "wrong password".BR;
-                    }
-                }
-
-                $con->close();
-
-                exit();
-            }
-        ?>
-
         <form method="POST"><!-- action="neco.php", method="GET" -->
             <input type="hidden" name="action" value="submited"/>
             <!-- id -- nutne mit sekvenci -->

@@ -60,6 +60,7 @@
             // vykonani insertu
             if(mysqli_query($con, $sql)) {
                 echo "success".BR;
+                $_SESSION["logged_in"] = true;
             } else {
                 echo "error:".mysqli_error($con).BR;
             }
