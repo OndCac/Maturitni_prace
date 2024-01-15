@@ -20,13 +20,21 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 $sql = "SELECT * FROM TeacherDigitalAgency.lecturer";
 $result = $con->query($sql);
 
+//$result = mysqli_fetch_assoc($result);
+$profileData = json_decode($result);
+/*
 while($row = mysqli_fetch_assoc($result)) {
     // skladame objekt pro zaznam z DB
     $profileData[] = $row;
 }
+*/
 
 // Fetch and convert to JSON
 //$profileData = json_decode($result);
+
+function lecturerId($id) {
+    $_SESSION["lecturerId"] = $id;
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +57,11 @@ while($row = mysqli_fetch_assoc($result)) {
     </header>
     <article>
         <?php
-            echo $profileData[0]["FirstName"];
+            foreach ($profileData as $row) {
+                echo '<div><a href="lecturer.php" onclick="lecturerId(' . $row["UUID"] . ')">' . $row["FirstName"] . $row["SecondName"] . '</a></div>';
+                
+                //echo $row["FirstName"] . $row["SecondName"] . BR;
+            }
         ?>
     </article>
     
