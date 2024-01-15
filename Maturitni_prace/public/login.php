@@ -4,13 +4,6 @@
 
     session_start();
 
-    if ($_SESSION["logged_in"]) {
-        echo "<li><a href='lec_list.php'>Lecturers</a></li>";
-        echo "<li><input class='logout-button' type='submit' value='Log out'>Log out</li>";
-    } else {
-        echo '<li><a href="registration.php">Registration</a></li>';
-    }
-
     if (isset($_POST["email"])) {
     $host="localhost";
     $port=3306;
