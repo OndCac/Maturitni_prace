@@ -28,6 +28,7 @@
             header("Location: index.php");
         } else {
             echo "wrong password".BR;
+            header("Location: login.php");
         }
     }
 

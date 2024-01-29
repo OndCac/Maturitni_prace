@@ -61,6 +61,7 @@
             if(mysqli_query($con, $sql)) {
                 echo "success".BR;
                 $_SESSION["logged_in"] = true;
+                header("Location: index.php");
             } else {
                 echo "error:".mysqli_error($con).BR;
             }

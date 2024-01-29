@@ -21,7 +21,7 @@ $sql = "SELECT * FROM TeacherDigitalAgency.lecturer";
 $result = $con->query($sql);
 
 //$result = mysqli_fetch_assoc($result);
-$profileData = json_decode($result);
+$profileData = mysqli_fetch_assoc($result);
 /*
 while($row = mysqli_fetch_assoc($result)) {
     // skladame objekt pro zaznam z DB
@@ -57,11 +57,14 @@ function lecturerId($id) {
     </header>
     <article>
         <?php
+        /*
             foreach ($profileData as $row) {
                 echo '<div><a href="lecturer.php" onclick="lecturerId(' . $row["UUID"] . ')">' . $row["FirstName"] . $row["SecondName"] . '</a></div>';
                 
                 //echo $row["FirstName"] . $row["SecondName"] . BR;
             }
+        */
+        echo '<div class=lec-list><a href="lecturer.php" onclick="lecturerId(' . $profileData["UUID"] . ')">' . $profileData["FirstName"] . ' ' . $profileData["MiddleName"] . ' ' . $profileData["LastName"] . '</a></div>';
         ?>
     </article>
     

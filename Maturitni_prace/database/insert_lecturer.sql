@@ -12,9 +12,9 @@ INSERT INTO Lecturer (TitleBefore, FirstName, MiddleName, LastName, TitleAfter, 
     1200
 );
 
-UPDATE Lecturer SET PRIMARY_CONTACT_UUID = 1 WHERE UUID = 1;
+-- UPDATE Lecturer SET PRIMARY_CONTACT_UUID = 1 WHERE UUID = 1;
 
-DELETE FROM Lecturer WHERE UUID = 2;
+-- DELETE FROM Lecturer WHERE UUID = 2;
 
 -- Seed data for tags
 INSERT INTO Tag (Name) VALUES ('Dobrovolnictví');

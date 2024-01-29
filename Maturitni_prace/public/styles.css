@@ -187,3 +187,12 @@ footer a {
     clear: both;
 }
 
+.lec-list {
+    border: solid #333333;
+}
+
+.lec-list a {
+    color: #414042;
+    padding: 8px 0;
+    text-decoration: none;
+}
