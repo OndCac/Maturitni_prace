@@ -43,6 +43,9 @@ function lecturerId($id) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" type="text/css"/>
+    <script src="DataTables/dataTables.jqueryui.min.js"></script>
+    <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="jquery/jquery-3.7.1.min.js"></script>
     <title>TdA: List of Lecturers</title>
 </head>
 <body>
@@ -57,15 +60,20 @@ function lecturerId($id) {
     </header>
     <article>
         <?php
-        /*
-            foreach ($profileData as $row) {
-                echo '<div><a href="lecturer.php" onclick="lecturerId(' . $row["UUID"] . ')">' . $row["FirstName"] . $row["SecondName"] . '</a></div>';
-                
-                //echo $row["FirstName"] . $row["SecondName"] . BR;
-            }
-        */
+        foreach ($profileData as $row) {
+            echo '<div><a href="lecturer.php" onclick="lecturerId(' . $row["UUID"] . ')">' . $row["FirstName"] . $row["SecondName"] . '</a></div>';
+            
+            //echo $row["FirstName"] . $row["SecondName"] . BR;
+        }
         echo '<div class=lec-list><a href="lecturer.php" onclick="lecturerId(' . $profileData["UUID"] . ')">' . $profileData["FirstName"] . ' ' . $profileData["MiddleName"] . ' ' . $profileData["LastName"] . '</a></div>';
         ?>
+        <script>
+            let table = new DataTable('lecturers');
+            var data = JSON.parse('<?echo $profileData;?>');
+            $('lecturers').DataTable( {
+                data: data
+            } );
+        </script>
     </article>
     
     <footer>

@@ -18,8 +18,11 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 // tabulka uzivatele z DB jako JSON
 $sql1 = "SELECT * FROM TeacherDigitalAgency.Lecturer where UUID = '1';"; // . $_SESSION["lecturerId"] . "'";
 $sql2 = "SELECT * FROM TeacherDigitalAgency.Contact where LecturerUUID = '1';";
-$sql3 = "SELECT * FROM TeacherDigitalAgency.Tag;";
-$sql4 = "SELECT * FROM TeacherDigitalAgency.LecturerTag where LecturerUUID = '1';";
+$sql3 = "select t.*, lt.taguuid
+from lecturertag lt left join tag t on lt.taguuid = t.uuid
+where lt.lectureruuid = '1';";
+//$sql3 = "SELECT * FROM TeacherDigitalAgency.Tag;";
+// $sql4 = "SELECT * FROM TeacherDigitalAgency.LecturerTag where LecturerUUID = '1';";
 
 $result = $con->query($sql1);
 $profileData = mysqli_fetch_assoc($result);
@@ -29,36 +32,13 @@ $contact = mysqli_fetch_assoc($result);
 $contact['TelephoneNumbers'] = json_decode($contact['TelephoneNumbers']);
 $contact['Emails'] = json_decode($contact['Emails']);
 
+
 $result = $con->query($sql3);
-// $tag = mysqli_fetch_assoc($result);
 while($row = mysqli_fetch_assoc($result)) {
     // skladame objekt pro zaznam z DB
-    $tag[] = $row;
+    $tags[] = $row;
 }
 
-$result = $con->query($sql4);
-// $lecturerTag = mysqli_fetch_assoc($result);
-while($row = mysqli_fetch_assoc($result)) {
-    // skladame objekt pro zaznam z DB
-    $lecturerTag[] = $row;
-}
-
-$tags = array();
-
-foreach ($lecturerTag as $key) {
-    $tags[] = $tag[$key["TagUUID"]];
-}
-
-
-/*
-foreach ($tag as $val) {
-    foreach ($lecturerTag as $key) {
-        if ($tag["UUID"] == $key["LecturerUUID"]) {
-            $tags[] = $val;
-        }
-    }
-}
-*/
 ?>
 
 <!DOCTYPE html> 
@@ -82,14 +62,14 @@ foreach ($tag as $val) {
         </nav>
     </header>
     <article>
-        <div class="container mt-5">
+        <div>
             <h1>Profile Information</h1>
 
             <!-- Display Profile Information -->
-            <div class="card">
+            <div>
                 <img src="<?php echo $profileData['PictureURL']; ?>" alt="Profile Picture">
                 <div>
-                    <h5><?php echo $profileData['TitleBefore'] . ' ' . $profileData['FirstName'] . ' ' . $profileData['MiddleName'] . ' ' . $profileData['LastName'] . ' ' . $profileData['TitleAfter']; ?></h5>
+                    <h2><?php echo $profileData['TitleBefore'] . ' ' . $profileData['FirstName'] . ' ' . $profileData['MiddleName'] . ' ' . $profileData['LastName'] . ' ' . $profileData['TitleAfter']; ?></h2>
                     <p><?php echo $profileData['Claim']; ?></p>
                     <p><?php echo $profileData['Bio']; ?></p>
                 </div>
@@ -97,7 +77,7 @@ foreach ($tag as $val) {
 
             <!-- Display Tags -->
             <div>
-                <h5>Tags:</h5>
+                <h3>Tags:</h3>
                 <ul>
                     <?php foreach ($tags as $tag): ?>
                         <li class="list-inline-item"><span class="badge badge-primary"><?php echo $tag["Name"]; ?></span></li>
@@ -107,7 +87,7 @@ foreach ($tag as $val) {
 
             <!-- Display Contact Information -->
             <div>
-                <h5>Contact:</h5>
+                <h3>Contact:</h3>
                 <ul>
                     <?php foreach ($contact['TelephoneNumbers'] as $telephone): ?>
                         <li>Telephone: <?php echo $telephone; ?></li>
