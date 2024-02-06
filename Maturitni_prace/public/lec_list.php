@@ -21,20 +21,18 @@ $sql = "SELECT * FROM TeacherDigitalAgency.lecturer";
 $result = $con->query($sql);
 
 //$result = mysqli_fetch_assoc($result);
-$profileData = mysqli_fetch_assoc($result);
-/*
+//$profileData = mysqli_fetch_assoc($result);
+
 while($row = mysqli_fetch_assoc($result)) {
     // skladame objekt pro zaznam z DB
     $profileData[] = $row;
 }
-*/
+
 
 // Fetch and convert to JSON
 //$profileData = json_decode($result);
 
-function lecturerId($id) {
-    $_SESSION["lecturerId"] = $id;
-}
+$dom = new DOMDocument();
 ?>
 
 <!DOCTYPE html>
@@ -43,9 +41,10 @@ function lecturerId($id) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" type="text/css"/>
-    <script src="DataTables/dataTables.jqueryui.min.js"></script>
-    <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
+    <!--<script src="DataTables/dataTables.jqueryui.min.js"></script>-->
     <script src="jquery/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
+    <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
     <title>TdA: List of Lecturers</title>
 </head>
 <body>
@@ -60,20 +59,71 @@ function lecturerId($id) {
     </header>
     <article>
         <?php
-        foreach ($profileData as $row) {
-            echo '<div><a href="lecturer.php" onclick="lecturerId(' . $row["UUID"] . ')">' . $row["FirstName"] . $row["SecondName"] . '</a></div>';
-            
-            //echo $row["FirstName"] . $row["SecondName"] . BR;
+        echo "<table id='lecTable' class='display'>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Price per hour (CZK)</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        for ($i=0; $i < count($profileData); $i++) { 
+            echo '<tr id="' . $profileData[$i]["UUID"] . '">
+                    <td>' . $profileData[$i]["TitleBefore"] . ' ' . $profileData[$i]["FirstName"] . ' ' . $profileData[$i]["MiddleName"] . ' ' . $profileData[$i]["LastName"] . ' ' . $profileData[$i]["TitleAfter"] . '</td>
+                    <td>' . $profileData[$i]["Location"] . '</td>
+                    <td>' . $profileData[$i]["PricePerHour"] . '</td>
+                    </tr>';
         }
-        echo '<div class=lec-list><a href="lecturer.php" onclick="lecturerId(' . $profileData["UUID"] . ')">' . $profileData["FirstName"] . ' ' . $profileData["MiddleName"] . ' ' . $profileData["LastName"] . '</a></div>';
+        echo "</tbody>";
+        // echo '<div class=lec-list><a href="lecturer.php" onclick="lecturerId(' . $profileData["UUID"] . ')">' . $profileData["FirstName"] . ' ' . $profileData["MiddleName"] . ' ' . $profileData["LastName"] . '</a></div>';
+            
         ?>
+
         <script>
-            let table = new DataTable('lecturers');
-            var data = JSON.parse('<?echo $profileData;?>');
-            $('lecturers').DataTable( {
-                data: data
+            $(document).ready( function () {
+                $('#lecTable').DataTable();
             } );
+                
+            $( '#lecTable tbody tr' ).on( 'click', function() {
+                createCookie("uuid", this.id, 1)
+                window.location.href = "lecturer.php";
+            });
+
+            // Function to create the cookie 
+            function createCookie(name, value, days) {
+                let expires;
+            
+                if (days) {
+                    let date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toGMTString();
+                }
+                else {
+                    expires = "";
+                }
+            
+                document.cookie = name + "=" +
+                    value + ";" + expires + "; path=/";
+            }
+                /*
+                let uuid = {"UUID": this.id}
+                let id = {
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "applicaiton/json; charset=utf-8"
+                    },
+                    "body": JSON.stringify(uuid)
+                }
+
+                fetch("lecturer.php", id)
+
+                window.location.href = "lecturer.php";
+                */
         </script>
+            
+            
+        
     </article>
     
     <footer>

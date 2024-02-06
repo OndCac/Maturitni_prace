@@ -1,10 +1,10 @@
 <?php
-    // def. odradkovani v HTML
-    define("BR", "<br/>\n");
-    session_start();
-?>
+// def. odradkovani v HTML
+define("BR", "<br/>\n");
+session_start();
 
-<?php
+$lecturerId = $_COOKIE["uuid"];
+
 $host="localhost";
 $port=3306;
 $socket="";
@@ -16,11 +16,11 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 	or die ('Could not connect to the database server' . mysqli_connect_error());
 
 // tabulka uzivatele z DB jako JSON
-$sql1 = "SELECT * FROM TeacherDigitalAgency.Lecturer where UUID = '1';"; // . $_SESSION["lecturerId"] . "'";
-$sql2 = "SELECT * FROM TeacherDigitalAgency.Contact where LecturerUUID = '1';";
+$sql1 = "SELECT * FROM TeacherDigitalAgency.Lecturer where UUID = '" . $lecturerId . "';"; // . $_SESSION["lecturerId"] . "'";
+$sql2 = "SELECT * FROM TeacherDigitalAgency.Contact where LecturerUUID = '" . $lecturerId . "';";
 $sql3 = "select t.*, lt.taguuid
 from lecturertag lt left join tag t on lt.taguuid = t.uuid
-where lt.lectureruuid = '1';";
+where lt.lectureruuid = '" . $lecturerId . "';";
 //$sql3 = "SELECT * FROM TeacherDigitalAgency.Tag;";
 // $sql4 = "SELECT * FROM TeacherDigitalAgency.LecturerTag where LecturerUUID = '1';";
 
@@ -61,32 +61,30 @@ while($row = mysqli_fetch_assoc($result)) {
             </ul>
         </nav>
     </header>
-    <article>
-        <div>
-            <h1>Profile Information</h1>
 
+    <article>
+        <h1>Profile Information</h1>
+        <div class="flex-container">
             <!-- Display Profile Information -->
-            <div>
-                <img src="<?php echo $profileData['PictureURL']; ?>" alt="Profile Picture">
-                <div>
-                    <h2><?php echo $profileData['TitleBefore'] . ' ' . $profileData['FirstName'] . ' ' . $profileData['MiddleName'] . ' ' . $profileData['LastName'] . ' ' . $profileData['TitleAfter']; ?></h2>
-                    <p><?php echo $profileData['Claim']; ?></p>
-                    <p><?php echo $profileData['Bio']; ?></p>
-                </div>
+            <img class="prof-img" src="<?php echo $profileData['PictureURL']; ?>" alt="Profile Picture">
+            <div class="prof-info">
+                <h2><?php echo $profileData['TitleBefore'] . ' ' . $profileData['FirstName'] . ' ' . $profileData['MiddleName'] . ' ' . $profileData['LastName'] . ' ' . $profileData['TitleAfter']; ?></h2>
+                <p><?php echo $profileData['Claim']; ?></p>
+                <p><?php echo $profileData['Bio']; ?></p>
             </div>
 
             <!-- Display Tags -->
-            <div>
+            <div class="prof-tc">
                 <h3>Tags:</h3>
                 <ul>
                     <?php foreach ($tags as $tag): ?>
-                        <li class="list-inline-item"><span class="badge badge-primary"><?php echo $tag["Name"]; ?></span></li>
+                        <li><span><?php echo $tag["Name"]; ?></span></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
 
             <!-- Display Contact Information -->
-            <div>
+            <div class="prof-tc">
                 <h3>Contact:</h3>
                 <ul>
                     <?php foreach ($contact['TelephoneNumbers'] as $telephone): ?>

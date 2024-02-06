@@ -196,3 +196,12 @@ footer a {
     padding: 8px 0;
     text-decoration: none;
 }
+
+.prof-img {
+    margin-top: 10px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap:wrap;
+}
