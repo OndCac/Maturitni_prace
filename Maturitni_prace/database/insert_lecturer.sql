@@ -33,13 +33,18 @@ INSERT INTO Tag (Name) VALUES ('Projektový management, event management');
 
 INSERT INTO Tag (Name) VALUES ('Fundraising pro neziskové studentské projekty');
 
-INSERT INTO Contact (LecturerUUID, TelephoneNumbers, Emails) VALUES (
+/*INSERT INTO Contact (LecturerUUID, TelephoneNumbers, Emails) VALUES (
     '1',
     '["+420 722 482 974"]',
     '["placha@scg.cz", "predseda@scg.cz"]'
 );
 
-DELETE FROM Contact WHERE UUID = 2;
+DELETE FROM Contact WHERE UUID = 2;*/
+
+update lecturer
+-- set Email = "placha@scg.cz"
+set TelephoneNumber = "+420 722 482 974"
+where uuid = 1;
 
 -- Seed data for the relationship
 INSERT INTO LecturerTag (LecturerUUID, TagUUID) VALUES ('1', '1');

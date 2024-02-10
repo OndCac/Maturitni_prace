@@ -17,8 +17,7 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 
 // tabulka uzivatele z DB jako JSON
 $sql1 = "SELECT * FROM TeacherDigitalAgency.Lecturer where UUID = '" . $lecturerId . "';"; // . $_SESSION["lecturerId"] . "'";
-$sql2 = "SELECT * FROM TeacherDigitalAgency.Contact where LecturerUUID = '" . $lecturerId . "';";
-$sql3 = "select t.*, lt.taguuid
+$sql2 = "select t.*, lt.taguuid
 from lecturertag lt left join tag t on lt.taguuid = t.uuid
 where lt.lectureruuid = '" . $lecturerId . "';";
 //$sql3 = "SELECT * FROM TeacherDigitalAgency.Tag;";
@@ -28,12 +27,6 @@ $result = $con->query($sql1);
 $profileData = mysqli_fetch_assoc($result);
 
 $result = $con->query($sql2);
-$contact = mysqli_fetch_assoc($result);
-$contact['TelephoneNumbers'] = json_decode($contact['TelephoneNumbers']);
-$contact['Emails'] = json_decode($contact['Emails']);
-
-
-$result = $con->query($sql3);
 while($row = mysqli_fetch_assoc($result)) {
     // skladame objekt pro zaznam z DB
     $tags[] = $row;
@@ -92,12 +85,8 @@ while($row = mysqli_fetch_assoc($result)) {
             <div class="prof-tc">
                 <h3>Contact:</h3>
                 <ul>
-                    <?php foreach ($contact['TelephoneNumbers'] as $telephone): ?>
-                        <li>Telephone: <?php echo $telephone; ?></li>
-                    <?php endforeach; ?>
-                    <?php foreach ($contact['Emails'] as $email): ?>
-                        <li>Email: <?php echo $email; ?></li>
-                    <?php endforeach; ?>
+                    <li>Telephone: <?php echo $profileData['TelephoneNumber']; ?></p>
+                    <li>Email: <?php echo $profileData['Email']; ?></p>
                 </ul>
             </div>
 

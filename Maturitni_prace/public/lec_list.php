@@ -51,13 +51,13 @@ while($row = mysqli_fetch_assoc($result)) {
         <nav>
             <ul>
                 <li><a href="index.php">Homepage</a></li>
-                <li class="aktivni"><a href="lec_list.php">Lecturers</a></li>
-                <li class='logout-button'><a href='logout.php'>Log out</a></li>
                 <?php
                 if ($_SESSION["role"] == "admin") {
                             echo "<li><a href='admin.php'>Administration</a></li>";
                         }
                 ?>
+                <li class="aktivni"><a href="lec_list.php">Lecturers</a></li>
+                <li class='logout-button'><a href='logout.php'>Log out</a></li>
             </ul>
         </nav>
     </header>

@@ -26,14 +26,20 @@ CREATE TABLE IF NOT EXISTS Lecturer (
     -- FOREIGN KEY (PRIMARY_CONTACT_UUID) REFERENCES Contact(UUID)
 );
 
+alter table Lecturer
+add TelephoneNumber varchar(15),
+add Email varchar(50) not null;
+
 -- Create the Contact table
-CREATE TABLE IF NOT EXISTS Contact (
+/*CREATE TABLE IF NOT EXISTS Contact (
     UUID INT not null auto_increment PRIMARY KEY,
     LecturerUUID INT not null,
     TelephoneNumbers JSON,
     Emails JSON not null,
 	FOREIGN KEY (LecturerUUID) REFERENCES Lecturer(UUID)
-);
+);*/
+
+drop table Contact;
 
 -- Create the Tag table
 CREATE TABLE IF NOT EXISTS Tag (

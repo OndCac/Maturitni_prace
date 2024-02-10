@@ -149,8 +149,6 @@ if (isset($_POST["uuid"])) {
             }
         </script> 
     </article>
-    
-    <article></article>
 
     <footer>
 
