@@ -41,9 +41,11 @@
             echo "password:".$_POST["password"].BR;
             echo BR.BR; */
 
+            $hash = hash('sha256', $_POST["password"]);
+
             $sql = "insert into User(UserName, Email, Password, role)\n"
             ."values('".$_POST["user"]."', '".$_POST["email"]
-                ."', '".$_POST["password"]."', 'host')";
+                ."', '".$hash."', 'host')";
             
             echo $sql.BR;
             
@@ -76,10 +78,6 @@
         <form method="POST"><!-- action="neco.php", method="GET" -->
             <input type="hidden" name="action" value="submited"/>
             <!-- id -- nutne mit sekvenci -->
-
-            <label for="user">User name:</label>
-            <input id="user" type="text" name="user" required />
-            <br/>
 
             <label for="email">Email:</label>
             <input id="email" type="email" name="email" required />

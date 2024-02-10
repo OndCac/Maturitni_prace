@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS Lecturer (
 );
 
 alter table Lecturer
-add TelephoneNumber varchar(15),
-add Email varchar(50) not null;
+modify column TelephoneNumber varchar(20);
+-- add Email varchar(50) not null;
 
 -- Create the Contact table
 /*CREATE TABLE IF NOT EXISTS Contact (
@@ -57,6 +57,7 @@ CREATE TABLE if not exists LecturerTag (
 );
 
 -- Create the User table
+-- admin password = 12345
 
 CREATE TABLE if not exists User (
     UUID int not null auto_increment primary KEY ,
@@ -64,6 +65,9 @@ CREATE TABLE if not exists User (
     Email VARCHAR(50) not null unique,
     Password VARCHAR(50) not null
 );
+
+alter table user
+modify column Password char(64) not null;
 
 alter table user
 add role enum("host", "admin");

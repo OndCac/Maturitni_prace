@@ -22,7 +22,9 @@
     } else {
         $result = mysqli_fetch_assoc($con->query($sql));
         
-        if($result["Password"] == $_POST["password"]) {
+        $hash = hash('sha256', $_POST["password"]);
+
+        if($result["Password"] == $hash) {
             echo "successful login".BR;
             $_SESSION["logged_in"] = true;
 

@@ -42,9 +42,9 @@ INSERT INTO Tag (Name) VALUES ('Fundraising pro neziskové studentské projekty'
 DELETE FROM Contact WHERE UUID = 2;*/
 
 update lecturer
--- set Email = "placha@scg.cz"
-set TelephoneNumber = "+420 722 482 974"
-where uuid = 1;
+set uuid = 1
+-- set TelephoneNumber = "+420 722 482 974"
+where uuid = 2;
 
 -- Seed data for the relationship
 INSERT INTO LecturerTag (LecturerUUID, TagUUID) VALUES ('1', '1');
@@ -67,4 +67,6 @@ INSERT INTO LecturerTag (LecturerUUID, TagUUID) VALUES ('1', '8');
 
 INSERT INTO User (username, email, password, role) VALUES ('admin', 'admin@gmail.com', '12345', 'admin');
 
-UPDATE user SET role = 'host' WHERE email = 'kon.sabik@gmail.com';
+update user set password = "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5" where email = 'admin@gmail.com';
+
+-- UPDATE user SET role = 'host' WHERE email = 'kon.sabik@gmail.com';
