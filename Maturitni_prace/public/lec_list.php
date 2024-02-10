@@ -32,7 +32,6 @@ while($row = mysqli_fetch_assoc($result)) {
 // Fetch and convert to JSON
 //$profileData = json_decode($result);
 
-$dom = new DOMDocument();
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +53,11 @@ $dom = new DOMDocument();
                 <li><a href="index.php">Homepage</a></li>
                 <li class="aktivni"><a href="lec_list.php">Lecturers</a></li>
                 <li class='logout-button'><a href='logout.php'>Log out</a></li>
+                <?php
+                if ($_SESSION["role"] == "admin") {
+                            echo "<li><a href='admin.php'>Administration</a></li>";
+                        }
+                ?>
             </ul>
         </nav>
     </header>

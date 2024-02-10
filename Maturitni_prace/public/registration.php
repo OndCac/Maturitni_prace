@@ -36,14 +36,14 @@
         <?php
         if (isset($_POST["email"])) {
             echo "formular odeslan".BR;
-            echo "user:".$_POST["user"].BR;
+            /* echo "user:".$_POST["user"].BR;
             echo "email:".$_POST["email"].BR;
             echo "password:".$_POST["password"].BR;
-            echo BR.BR;
+            echo BR.BR; */
 
-            $sql = "insert into User(UserName, Email, Password)\n"
+            $sql = "insert into User(UserName, Email, Password, role)\n"
             ."values('".$_POST["user"]."', '".$_POST["email"]
-                ."', '".$_POST["password"]."')";
+                ."', '".$_POST["password"]."', 'host')";
             
             echo $sql.BR;
             
@@ -61,6 +61,7 @@
             if(mysqli_query($con, $sql)) {
                 echo "success".BR;
                 $_SESSION["logged_in"] = true;
+                $_SESSION["role"] = "host";
                 header("Location: index.php");
             } else {
                 echo "error:".mysqli_error($con).BR;

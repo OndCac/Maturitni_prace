@@ -25,6 +25,9 @@
         if($result["Password"] == $_POST["password"]) {
             echo "successful login".BR;
             $_SESSION["logged_in"] = true;
+
+            $_SESSION["role"] = $result["role"];
+            echo $_SESSION["role"];
             header("Location: index.php");
         } else {
             echo "wrong password".BR;

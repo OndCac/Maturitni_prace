@@ -24,6 +24,10 @@
                 <li class="aktivni"><a href="index.php">Homepage</a></li>
                 <?php 
                     if ($_SESSION["logged_in"]) {
+                        if ($_SESSION["role"] == "admin") {
+                            echo "<li><a href='admin.php'>Administration</a></li>";
+                        }
+                        
                         echo "<li><a href='lec_list.php'>Lecturers</a></li>"
                         . "<li class='logout-button'><a href='logout.php'>Log out</a></li>";
                     } else {

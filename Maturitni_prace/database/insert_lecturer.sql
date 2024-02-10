@@ -57,3 +57,9 @@ INSERT INTO LecturerTag (LecturerUUID, TagUUID) VALUES ('1', '6');
 INSERT INTO LecturerTag (LecturerUUID, TagUUID) VALUES ('1', '7');
 
 INSERT INTO LecturerTag (LecturerUUID, TagUUID) VALUES ('1', '8');
+
+-- User
+
+INSERT INTO User (username, email, password, role) VALUES ('admin', 'admin@gmail.com', '12345', 'admin');
+
+UPDATE user SET role = 'host' WHERE email = 'kon.sabik@gmail.com';
