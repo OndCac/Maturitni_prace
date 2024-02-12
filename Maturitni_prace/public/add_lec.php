@@ -33,24 +33,32 @@ if (isset($_POST["FirstName"])) {
         '" . $_POST['TelephoneNumber'] . "',
         '" . $_POST['Email'] . "')";
     
-        $con->query($sql)
-            or die ("error:".mysqli_error($con));
+    if ($con->query($sql)) {
+        $con->close();
 
-        $_SESSION['Email'] = $_POST['Email'];
+        $_SESSION['LecEmail'] = $_POST['Email'];
 
-        echo $_POST['TitleBefore'] . BR
-            . $_POST['FirstName'] . BR
-            . $_POST['MiddleName'] . BR 
-            . $_POST['LastName'] . BR 
-            . $_POST['TitleAfter'] . BR 
-            . $_POST['PictureURL'] . BR 
-            . $_POST['Location'] . BR 
-            . $_POST['Claim'] . BR 
-            . $_POST['Bio'] . BR 
-            . $_POST['PricePerHour'] . BR
-            . $_POST['Email'] . BR 
-            . $_POST['TelephoneNumber'] . BR
-            . "<li><a href='add_tag.php'>Add tags</a></li>";
+        header("Location: add_tag.php");
+    } else {
+        echo "error:".mysqli_error($con);
+    }
+
+    $_SESSION['Email'] = $_POST['Email'];
+
+    /*echo $_POST['TitleBefore'] . BR
+        . $_POST['FirstName'] . BR
+        . $_POST['MiddleName'] . BR 
+        . $_POST['LastName'] . BR 
+        . $_POST['TitleAfter'] . BR 
+        . $_POST['PictureURL'] . BR 
+        . $_POST['Location'] . BR 
+        . $_POST['Claim'] . BR 
+        . $_POST['Bio'] . BR 
+        . $_POST['PricePerHour'] . BR
+        . $_POST['Email'] . BR 
+        . $_POST['TelephoneNumber'] . BR
+        . "<li><a href='add_tag.php'>Add tags</a></li>";*/
+
     
 
     /*$sql = "SELECT uuid FROM Lecturer where Email = '" . $_POST['Email'] . "'";
@@ -76,17 +84,10 @@ if (isset($_POST["FirstName"])) {
     $con->close();
 
     exit();
+
+    header("Location: add_tag.php");
 }
 
-/*function addEm() {
-    echo '<br/><label for="Email">Email:</label>
-            <input id="Email" type="email" name="Email" required /> <button onclick="addEm()" type="button">Another Email</button>';
-}
-
-function addPh() {
-    echo '<br/><label for="Phone">Phone number:</label>
-            <input id="Phone" type="number" max="20" name="Phone" required /> <button onclick="addPh()" type="button">Another Number</button>';
-}*/
 ?>
 
 <!DOCTYPE html>

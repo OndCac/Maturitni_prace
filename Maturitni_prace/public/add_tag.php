@@ -14,7 +14,7 @@ $dbname="TeacherDigitalAgency";
 $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
     or die ('Could not connect to the database server' . mysqli_connect_error());
 
-$sql = "SELECT uuid FROM Lecturer where Email = '" . $_SESSION['Email'] . "'";
+$sql = "SELECT uuid FROM Lecturer where Email = '" . $_SESSION['LecEmail'] . "'";
 
 if (!$con->query($sql)) {
     echo "error:".mysqli_error($con).BR;
@@ -46,6 +46,11 @@ if (!$con->query($sql)) {
             </ul>
         </nav>
     </header>
+
+    <article>
+        <a href="add_pic.php">Skip</a>
+    </article>
+
     <article>
         <?php
             $sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";

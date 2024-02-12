@@ -33,8 +33,8 @@ if (isset($_POST["FirstName"])) {
             TitleAfter = '" . $_POST['TitleAfter'] . "', 
             PictureURL = '" . $_POST['PictureURL'] . "', 
             Location = '" . $_POST['Location'] . "', 
-            Claim = '" . $_POST['Claim'] . "', 
-            Bio = '" . $_POST['Bio'] . "', 
+            Claim = '" . ltrim($_POST['Claim']) . "', 
+            Bio = '" . ltrim($_POST['Bio']) . "', 
             PricePerHour = " . $_POST['PricePerHour'] . ", 
             TelephoneNumber = '" . $_POST['TelephoneNumber'] . "', 
             Email = '" . $_POST['Email'] . "'
@@ -136,11 +136,11 @@ if (isset($_POST["FirstName"])) {
                     <br/>
 
                     <label for="PricePerHour">Price Per Hour (CZK):</label>
-                    <input id="PricePerHour" name="PricePerHour" type="number" value="' . $profileData["PricePerHour"] . '" required />
+                    <input id="PricePerHour" name="PricePerHour" type="number" value="' . htmlspecialchars($profileData["PricePerHour"]) . '" required />
                     <br/>
 
                     <label for="TelephoneNumber">Phone number:</label>
-                    <input id="TelephoneNumber" name="TelephoneNumber" value="' . $profileData["TelephoneNumber"] . '" />
+                    <input id="TelephoneNumber" name="TelephoneNumber" value="' . htmlspecialchars($profileData["TelephoneNumber"]) . '" />
                     <br/>
 
                     <label for="Email">Email:</label>

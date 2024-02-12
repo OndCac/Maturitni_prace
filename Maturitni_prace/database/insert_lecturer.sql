@@ -1,5 +1,5 @@
 -- Seed data for the provided lecturer
-INSERT INTO Lecturer (TitleBefore, FirstName, MiddleName, LastName, TitleAfter, PictureURL, Location, Claim, Bio, PricePerHour) VALUES (
+INSERT INTO Lecturer (TitleBefore, FirstName, MiddleName, LastName, TitleAfter, PictureURL, Location, Claim, Bio, PricePerHour, Email, TelephoneNumber) VALUES (
     'Mgr.',
     'Petra',
     'Swil',
@@ -9,7 +9,9 @@ INSERT INTO Lecturer (TitleBefore, FirstName, MiddleName, LastName, TitleAfter, 
     'Brno',
     'Aktivní studentka / Předsedkyně spolku / Projektová manažerka',
     '<p>Baví mě organizovat věci. Ať už to bylo vyvíjení mobilních aplikací ve Futured, pořádání konferencí, spolupráce na soutěžích Prezentiáda, pIšQworky, <b>Tour de App</b> a Středoškolák roku, nebo třeba dobrovolnictví, vždycky jsem skončila u projektového managementu, rozvíjení soft-skills a vzdělávání. U studentských projektů a akcí jsem si vyzkoušela snad všechno od marketingu po logistiku a moc ráda to předám dál. Momentálně studuji Pdf MUNI a FF MUNI v Brně.</p>',
-    1200
+    1200,
+    'predseda@scg.cz',
+    "+420 722 482 974"
 );
 
 -- UPDATE Lecturer SET PRIMARY_CONTACT_UUID = 1 WHERE UUID = 1;
