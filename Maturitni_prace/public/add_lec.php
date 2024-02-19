@@ -19,13 +19,12 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
     or die ('Could not connect to the database server' . mysqli_connect_error());
 
 if (isset($_POST["FirstName"])) {
-    $sql = "INSERT INTO Lecturer (TitleBefore, FirstName, MiddleName, LastName, TitleAfter, PictureURL, Location, Claim, Bio, PricePerHour, TelephoneNumber, Email) VALUES (
+    $sql = "INSERT INTO Lecturer (TitleBefore, FirstName, MiddleName, LastName, TitleAfter, Location, Claim, Bio, PricePerHour, TelephoneNumber, Email) VALUES (
         '" . $_POST['TitleBefore'] . "', 
         '" . $_POST['FirstName'] . "', 
         '" . $_POST['MiddleName'] . "', 
         '" . $_POST['LastName'] . "', 
         '" . $_POST['TitleAfter'] . "', 
-        '" . $_POST['PictureURL'] . "', 
         '" . $_POST['Location'] . "', 
         '" . $_POST['Claim'] . "', 
         '" . $_POST['Bio'] . "', 
@@ -50,7 +49,6 @@ if (isset($_POST["FirstName"])) {
         . $_POST['MiddleName'] . BR 
         . $_POST['LastName'] . BR 
         . $_POST['TitleAfter'] . BR 
-        . $_POST['PictureURL'] . BR 
         . $_POST['Location'] . BR 
         . $_POST['Claim'] . BR 
         . $_POST['Bio'] . BR 
@@ -58,28 +56,6 @@ if (isset($_POST["FirstName"])) {
         . $_POST['Email'] . BR 
         . $_POST['TelephoneNumber'] . BR
         . "<li><a href='add_tag.php'>Add tags</a></li>";*/
-
-    
-
-    /*$sql = "SELECT uuid FROM Lecturer where Email = '" . $_POST['Email'] . "'";
-
-    if (!$con->query($sql)) {
-        echo "error:".mysqli_error($con).BR;
-    } else {
-        $uuid = mysqli_fetch_assoc($con->query($sql));
-    }
-
-    foreach ($lecTags as $lecTag) {
-        $sql = "INSERT INTO LecturerTag (LecturerUUID, TagUUID)
-            VALUES (" . $uuid['uuid'] . ", " . $lecTag . " )";
-
-        if (!$con->query($sql)) {
-            echo "error:".mysqli_error($con).BR;
-        } else {
-            $con->query($sql);
-        }
-    }*/
-    
 
     $con->close();
 
@@ -116,7 +92,7 @@ if (isset($_POST["FirstName"])) {
     <article>
         <?php
             echo '
-                    <form method="POST">
+                    <form method="POST" class="flex-container">
                     <input type="hidden" name="action" value="submited"/>
                     <!-- id -- nutne mit sekvenci -->
 
@@ -124,7 +100,7 @@ if (isset($_POST["FirstName"])) {
                     <input id="TitleBefore" name="TitleBefore" />
                     <br/>
 
-                    <label for="FirstName">First Name:</label>
+                    <label for="FirstName">*First Name:</label>
                     <input id="FirstName" name="FirstName" required />
                     <br/>
 
@@ -132,7 +108,7 @@ if (isset($_POST["FirstName"])) {
                     <input id="MiddleName" name="MiddleName" />
                     <br/>
 
-                    <label for="LastName">Last Name:</label>
+                    <label for="LastName">*Last Name:</label>
                     <input id="LastName" name="LastName" required />
                     <br/>
 
@@ -140,29 +116,25 @@ if (isset($_POST["FirstName"])) {
                     <input id="TitleAfter" name="TitleAfter" />
                     <br/>
 
-                    <label for="PictureURL">Picture URL:</label>
-                    <input id="PictureURL" name="PictureURL" />
-                    <br/>
-
-                    <label for="Location">Location:</label>
+                    <label for="Location">*Location:</label>
                     <input id="Location" name="Location" required />
                     <br/>
 
-                    <label for="Claim">Claim:</label>
+                    <label for="Claim">*Claim:</label>
                     <textarea id="Claim" name="Claim" rows="4" cols="50" required>
                     </textarea>
                     <br/>
 
-                    <label for="Bio">Bio:</label>
+                    <label for="Bio">*Bio:</label>
                     <textarea id="Bio" name="Bio" rows="4" cols="50" required>
                     </textarea>
                     <br/>
 
-                    <label for="PricePerHour">Price Per Hour (CZK):</label>
+                    <label for="PricePerHour">*Price Per Hour (CZK):</label>
                     <input id="PricePerHour" name="PricePerHour" type="number" required />
                     <br/>
 
-                    <label for="Email">Email:</label>
+                    <label for="Email">*Email:</label>
                     <input id="Email" name="Email" required />
                     <br/>
 
@@ -175,67 +147,7 @@ if (isset($_POST["FirstName"])) {
                     </form>';
         ?>
     </article>
-<?php /*
-    <article>
-        <?php
-            $sql = "SELECT * FROM TeacherDigitalAgency.Tag";
-            $result = $con->query($sql);
 
-            while($row = mysqli_fetch_assoc($result)) {
-                // skladame objekt pro zaznam z DB
-                $Tag[] = $row;
-            }
-
-            if (isset($_COOKIE["id"])) {
-                    $lecTags[] = $_COOKIE["id"];
-                }
-
-            echo "<table id='tagTable' class='display'>
-                    <thead>
-                        <tr>
-                            <th>Tag Name</th>
-                            <th>Add Tag</th>
-                        </tr>
-                    </thead>
-                    <tbody>";
-            for ($i=0; $i < count($Tag); $i++) { 
-                echo '<tr>
-                        <td>' . $Tag[$i]["Name"] . '</td>
-                        <td><button onclick="addTag('.$Tag[$i]["UUID"].')" type="button">Add</button></td>
-                        </tr>';
-            }
-            echo "</tbody>"; 
-        ?>
-        <script>
-            $(document).ready( function () {
-                $('#tagTable').DataTable();
-            } );
-
-            // Function to create the cookie 
-            function createCookie(name, value, minutes) {
-                let expires;
-            
-                if (minutes) {
-                    let date = new Date();
-                    date.setTime(date.getTime() + (minutes * 60 * 1000));
-                    expires = "; expires=" + date.toGMTString();
-                }
-                else {
-                    expires = "";
-                }
-            
-                document.cookie = name + "=" +
-                    value + ";" + expires + "; path=/";
-            }
-
-            function addTag(id) {
-                createCookie("id", id, 0.1);
-            }
-
-            
-        </script> 
-    </article>
-*/ ?>
     <footer>
 
     </footer>

@@ -48,10 +48,6 @@ if (!$con->query($sql)) {
     </header>
 
     <article>
-        <a href="add_pic.php">Skip</a>
-    </article>
-
-    <article>
         <?php
             $sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
             $result = $con->query($sql1);
@@ -86,9 +82,8 @@ if (!$con->query($sql)) {
                         <td><button onclick="addTag('.$Tag[$i]["UUID"].')" type="button">Add</button></td>
                         </tr>';
             }
-            echo "</tbody>"; 
-
-            echo '<button onclick="finish()" type="button" class="button">Finish</button>';
+            echo "</tbody>
+                    <button onclick='finish()' type='button' class='button'>Continue</button>"; 
         ?>
         <script>
             $(document).ready( function () {
@@ -118,7 +113,7 @@ if (!$con->query($sql)) {
             }
 
             function finish() {
-                window.location.href = "admin.php";
+                window.location.href = "add_pic.php";
             }
             
         </script>

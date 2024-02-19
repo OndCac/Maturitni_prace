@@ -16,12 +16,11 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 	or die ('Could not connect to the database server' . mysqli_connect_error());
 
 // tabulka uzivatele z DB jako JSON
-$sql1 = "SELECT * FROM TeacherDigitalAgency.Lecturer where UUID = '" . $lecturerId . "';"; // . $_SESSION["lecturerId"] . "'";
+$sql1 = "SELECT * FROM TeacherDigitalAgency.Lecturer where UUID = '" . $lecturerId . "';";
 $sql2 = "select t.*, lt.taguuid
 from lecturertag lt left join tag t on lt.taguuid = t.uuid
 where lt.lectureruuid = '" . $lecturerId . "';";
-//$sql3 = "SELECT * FROM TeacherDigitalAgency.Tag;";
-// $sql4 = "SELECT * FROM TeacherDigitalAgency.LecturerTag where LecturerUUID = '1';";
+$sql3 = "SELECT name FROM TeacherDigitalAgency.ProfPic where LecturerUUID = '" . $lecturerId . "';";
 
 $result = $con->query($sql1);
 $profileData = mysqli_fetch_assoc($result);
@@ -32,6 +31,13 @@ while($row = mysqli_fetch_assoc($result)) {
     $tags[] = $row;
 }
 
+$result = $con->query($sql3);
+$PicName = mysqli_fetch_assoc($result);
+if (file_exists("../database/images/" . $PicName["name"])) {
+    $ProfPic = "../database/images/" . $PicName["name"];
+} else {
+    $ProfPic = "../database/images/default_profpic.jpg";
+}
 ?>
 
 <!DOCTYPE html> 
@@ -64,7 +70,7 @@ while($row = mysqli_fetch_assoc($result)) {
         <h1>Profile Information</h1>
         <div class="flex-container">
             <!-- Display Profile Information -->
-            <img class="prof-img" src="<?php echo $profileData['PictureURL']; ?>" alt="Profile Picture">
+            <img class="prof-img" src="<?php echo $ProfPic; ?>" alt="Profile Picture">
             <div class="prof-info">
                 <h2><?php echo $profileData['TitleBefore'] . ' ' . $profileData['FirstName'] . ' ' . $profileData['MiddleName'] . ' ' . $profileData['LastName'] . ' ' . $profileData['TitleAfter']; ?></h2>
                 <p><?php echo $profileData['Claim']; ?></p>

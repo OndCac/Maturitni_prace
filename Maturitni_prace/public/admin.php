@@ -54,7 +54,63 @@ if (isset($_POST["uuid"])) {
     <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
     <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
     <title>TdA: List of Lecturers</title>
+    <script>
+        $(document).ready( function () {
+            $('#lecTable').DataTable();
+        } );
+        
+        $(document).ready( function () {
+            $('#tagTable').DataTable();
+        } );
+
+        // Function to create the cookie 
+        function createCookie(name, value, minutes) {
+            let expires;
+        
+            if (minutes) {
+                let date = new Date();
+                date.setTime(date.getTime() + (minutes * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            }
+            else {
+                expires = "";
+            }
+        
+            document.cookie = name + "=" +
+                value + ";" + expires + "; path=/";
+        }
+
+        function showLec(id) {
+            createCookie("uuid", id, 60)
+            window.location.href = "lecturer.php";
+        }
+
+        function deleteLec(id) {
+            createCookie("uuid", id, 60)
+            window.location.href = "delete_lec.php";
+        }
+
+        function editLec(id) {
+            createCookie("uuid", id, 60)
+            window.location.href = "edit_lec.php";
+        }
+
+        function addLec() {
+            window.location.href = "add_lec.php";
+        }
+
+        function deleteTag(id) {
+            createCookie("tag_uuid", id, 60)
+            window.location.href = "delete_tag.php";
+        }
+
+        function createTag() {
+            window.location.href = "create_tag.php";
+        }
+
+    </script> 
 </head>
+
 <body>
     <header>
         <nav>
@@ -65,8 +121,14 @@ if (isset($_POST["uuid"])) {
                 <li class='logout-button'><a href='logout.php'>Log out</a></li>
             </ul>
         </nav>
+        
     </header>
+
     <article>
+
+        <button class="button" type="button" onclick="addLec()">Add Lecturer</button>
+        <button class="button" type="button" onclick="createTag()">Create new Tag</button>
+
         <?php
             echo "<table id='lecTable' class='display'>
                     <thead>
@@ -92,62 +154,31 @@ if (isset($_POST["uuid"])) {
             }
             echo "</tbody>"; 
         ?>
+        <?php
+            $sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
+            $result = $con->query($sql1);
 
-        <button type="button" onclick="addLec()">Add Lecturer</button>
-
-        <script>
-            $(document).ready( function () {
-                $('#lecTable').DataTable();
-            } );
-            
-            /*
-            $( '#lecTable tbody tr' ).on( 'click', function() {
-                createCookie("uuid", this.id, 5)
-                window.location.href = "lecturer.php";
-            });
-            */
-
-            // Function to create the cookie 
-            function createCookie(name, value, minutes) {
-                let expires;
-            
-                if (minutes) {
-                    let date = new Date();
-                    date.setTime(date.getTime() + (minutes * 60 * 1000));
-                    expires = "; expires=" + date.toGMTString();
-                }
-                else {
-                    expires = "";
-                }
-            
-                document.cookie = name + "=" +
-                    value + ";" + expires + "; path=/";
+            while($row = mysqli_fetch_assoc($result)) {
+                // skladame objekt pro zaznam z DB
+                $Tag[] = $row;
             }
 
-            function showLec(id) {
-                createCookie("uuid", id, 60)
-                window.location.href = "lecturer.php";
+            echo "<table id='tagTable' class='display'>
+                    <thead>
+                        <tr>
+                            <th>Tag Name</th>
+                            <th>Delete Tag</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+            for ($i=0; $i < count($Tag); $i++) { 
+                echo '<tr>
+                        <td>' . $Tag[$i]["Name"] . '</td>
+                        <td><button onclick="deleteTag('.$Tag[$i]["UUID"].')" type="button">Delete</button></td>
+                        </tr>';
             }
-
-            function deleteLec(id) {
-                createCookie("uuid", id, 60)
-                window.location.href = "delete_lec.php";
-                /*fetch("admin.php", {
-                    method: "POST",
-                    headers: {'Content-Type': 'application/json'}, 
-                    body: {uuid: id}
-                    });*/
-            }
-
-            function editLec(id) {
-                createCookie("uuid", id, 60)
-                window.location.href = "edit_lec.php";
-            }
-
-            function addLec() {
-                window.location.href = "add_lec.php";
-            }
-        </script> 
+            echo "</tbody>"; 
+        ?>
     </article>
 
     <footer>

@@ -72,3 +72,5 @@ INSERT INTO User (username, email, password, role) VALUES ('admin', 'admin@gmail
 update user set password = "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5" where email = 'admin@gmail.com';
 
 -- UPDATE user SET role = 'host' WHERE email = 'kon.sabik@gmail.com';
+
+insert into ProfPic (name, LecturerUUID) values ("big.png.webp", 1) ;

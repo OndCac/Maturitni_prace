@@ -26,7 +26,9 @@ CREATE TABLE IF NOT EXISTS Lecturer (
     -- FOREIGN KEY (PRIMARY_CONTACT_UUID) REFERENCES Contact(UUID)
 );
 
-/*alter table Lecturer
+/*
+alter table Lecturer
+drop column PictureURL;
 add TelephoneNumber varchar(20);
 add Email varchar(50) not null;*/
 
@@ -72,20 +74,9 @@ modify column Password char(64) not null;
 alter table user
 add role enum("host", "admin");
 
-CREATE TABLE ProfPic (
+CREATE TABLE if not exists ProfPic (
    UUID INT AUTO_INCREMENT PRIMARY KEY,
-   -- name VARCHAR(255) NOT NULL,
-   data LONGBLOB NOT NULL
-   -- unique (name)
-);
-
-alter table ProfPic
-drop column name;
-
-CREATE TABLE PicLec (
-	LecturerUUID INT not null,
-    ProfPicUUID INT not null,
-    PRIMARY KEY (LecturerUUID, ProfPicUUID),
-    FOREIGN KEY (LecturerUUID) REFERENCES Lecturer(UUID),
-    FOREIGN KEY (ProfPicUUID) REFERENCES ProfPic(UUID)
+   name VARCHAR(255) NOT NULL,
+   LecturerUUID int not null,
+   unique (name)
 );

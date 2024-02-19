@@ -11,7 +11,9 @@ $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 
 $sql1 = "DELETE FROM TeacherDigitalAgency.lecturer WHERE UUID = " . $_COOKIE['uuid'] . ";";
 $sql2 = "DELETE FROM TeacherDigitalAgency.lecturerTag WHERE LecturerUUID = " . $_COOKIE['uuid'] . ";";
+$sql3 = "DELETE FROM TeacherDigitalAgency.ProfPic WHERE LecturerUUID = " . $_COOKIE['uuid'] . ";";
 
+$con->query($sql3);
 $con->query($sql2);
 $con->query($sql1);
 

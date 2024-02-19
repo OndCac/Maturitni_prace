@@ -163,6 +163,7 @@ footer a {
     padding: 12px 25px;
     border-radius: 25px;
     top: 15px;
+    margin-bottom: 10px;
 }
 
 
@@ -203,5 +204,5 @@ footer a {
 
 .flex-container {
     display: flex;
-    flex-wrap:wrap;
+    flex-direction: column;
 }

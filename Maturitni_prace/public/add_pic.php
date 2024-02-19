@@ -4,6 +4,7 @@ session_start();
 // def. odradkovani v HTML
 define("BR", "<br/>\n");
 
+
 $host="localhost";
 $port=3306;
 $socket="";
@@ -14,13 +15,15 @@ $dbname="TeacherDigitalAgency";
 $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
     or die ('Could not connect to the database server' . mysqli_connect_error());
 
-$sql1 = "SELECT uuid FROM Lecturer where Email = '" . $_SESSION['LecEmail'] . "'";
+$sql = "SELECT uuid FROM Lecturer where Email = '" . $_SESSION['LecEmail'] . "'";
 
-if (!$con->query($sql1)) {
+if (!$con->query($sql)) {
     echo "error:".mysqli_error($con).BR;
 } else {
-    $uuid = mysqli_fetch_assoc($con->query($sql1));
+    $uuid = mysqli_fetch_assoc($con->query($sql));
 }
+
+define ("UPLOAD_DIR", "../database/images");
 ?>
 
 <!DOCTYPE html>
@@ -55,33 +58,22 @@ if (!$con->query($sql1)) {
         </form>
 
         <?php
-            // check if an image file was uploaded
-            if(isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                $name = $_FILES['image']['name'];
-                $data = file_get_contents($_FILES['image']['tmp_name']);
-
-                $sql2 = "INSERT INTO ProfPic (data) VALUES ($data);";
-                if ($con->query($sql2)) {
-                    /*$sql3 = "SELECT UUID FROM ProfPic where name = '" . $name . "'";
-
-                    if (!$con->query($sql3)) {
-                        echo "error:".mysqli_error($con).BR;
-                    } else {*/
-                        $profId = $con->insert_id; // mysqli_fetch_assoc($con->query($sql3));
-
-                        $sql4 = "INSERT INTO PicLec (LecturerUUID, ProfPicUUID), VALUES ($uuid, $profId);";
-                        if ($con->query($sql4)) {
-                            echo "success".BR;
-                            echo '<a href="admin.php">Finish</a>';
-                        } else {
-                        echo "error:".mysqli_error($con);
-                        }
-                    //}
-
-                } else {
-                    echo "error:".mysqli_error($con);
+            if (isset($_FILES['image'])) {
+                $upload_file = $_FILES['image'];
+                $upload_file_name = $_FILES['image']['name'];
+                // presun souboru z docasneho uloziste
+                if (!move_uploaded_file($upload_file['tmp_name'], UPLOAD_DIR."/$upload_file_name"))
+                {
+                    die("cannot move uploaded file to ".UPLOAD_DIR);
                 }
 
+                $sql1 = "INSERT INTO ProfPic (name, LecturerUUID) VALUES ('$upload_file_name', " . $uuid['uuid'] . ")";
+                if (!$con->query($sql1)) {
+                    echo "error:".mysqli_error($con).BR;
+                }
+
+                unset($_SESSION["LecEmail"]);
+                header("Location: admin.php");
             }
         ?>
     </article>
