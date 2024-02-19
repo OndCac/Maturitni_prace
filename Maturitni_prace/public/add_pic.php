@@ -33,7 +33,13 @@ define ("UPLOAD_DIR", "../database/images");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" type="text/css"/>
     <title>TdA: List of Lecturers</title>
+    <script>
+        function finish() {
+            window.location.href = "admin.php";
+        }
+    </script>
 </head>
+
 <body>
     <header>
         <nav>
@@ -47,10 +53,8 @@ define ("UPLOAD_DIR", "../database/images");
     </header>
 
     <article>
-    <a href="admin.php">Skip</a>
-    </article>
+        <button class="button" type="button" onclick="finish()">Finish</button>
 
-    <article>
         <form method="post" enctype="multipart/form-data">
             <label for="img">Select file (name: firstname_secondname.img)</label>
             <input id="img" type="file" name="image" />

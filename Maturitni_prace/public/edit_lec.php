@@ -30,8 +30,7 @@ if (isset($_POST["FirstName"])) {
             FirstName = '" . $_POST['FirstName'] . "', 
             MiddleName = '" . $_POST['MiddleName'] . "', 
             LastName = '" . $_POST['LastName'] . "', 
-            TitleAfter = '" . $_POST['TitleAfter'] . "', 
-            PictureURL = '" . $_POST['PictureURL'] . "', 
+            TitleAfter = '" . $_POST['TitleAfter'] . "',
             Location = '" . $_POST['Location'] . "', 
             Claim = '" . ltrim($_POST['Claim']) . "', 
             Bio = '" . ltrim($_POST['Bio']) . "', 
@@ -50,7 +49,6 @@ if (isset($_POST["FirstName"])) {
             . $_POST['MiddleName'] . BR 
             . $_POST['LastName'] . BR 
             . $_POST['TitleAfter'] . BR 
-            . $_POST['PictureURL'] . BR 
             . $_POST['Location'] . BR 
             . $_POST['Claim'] . BR 
             . $_POST['Bio'] . BR 
@@ -113,10 +111,6 @@ if (isset($_POST["FirstName"])) {
 
                     <label for="TitleAfter">Title After:</label>
                     <input id="TitleAfter" name="TitleAfter" value="' . $profileData["TitleAfter"] . '" />
-                    <br/>
-
-                    <label for="PictureURL">Picture URL:</label>
-                    <input id="PictureURL" name="PictureURL" value="' . $profileData["PictureURL"] . '" />
                     <br/>
 
                     <label for="Location">Location:</label>

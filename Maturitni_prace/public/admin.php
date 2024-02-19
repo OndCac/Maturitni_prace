@@ -153,8 +153,7 @@ if (isset($_POST["uuid"])) {
                         </tr>';
             }
             echo "</tbody>"; 
-        ?>
-        <?php
+            
             $sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
             $result = $con->query($sql1);
 

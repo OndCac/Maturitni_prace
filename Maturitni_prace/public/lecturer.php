@@ -33,10 +33,18 @@ while($row = mysqli_fetch_assoc($result)) {
 
 $result = $con->query($sql3);
 $PicName = mysqli_fetch_assoc($result);
-if (file_exists("../database/images/" . $PicName["name"])) {
-    $ProfPic = "../database/images/" . $PicName["name"];
-} else {
+
+if (empty($PicName["name"])) {
     $ProfPic = "../database/images/default_profpic.jpg";
+} else {
+    if (file_exists("../database/images/" . $PicName["name"])) {
+        $ProfPic = "../database/images/" . $PicName["name"];
+    } else {
+        $ProfPic = "../database/images/default_profpic.jpg";
+    }
+}
+if (!isset($tags)) {
+    $tags = array();
 }
 ?>
 
@@ -70,7 +78,10 @@ if (file_exists("../database/images/" . $PicName["name"])) {
         <h1>Profile Information</h1>
         <div class="flex-container">
             <!-- Display Profile Information -->
-            <img class="prof-img" src="<?php echo $ProfPic; ?>" alt="Profile Picture">
+            <div class="img">
+                <img class="prof-img" src="<?php echo $ProfPic; ?>" alt="Profile Picture">
+            </div>
+
             <div class="prof-info">
                 <h2><?php echo $profileData['TitleBefore'] . ' ' . $profileData['FirstName'] . ' ' . $profileData['MiddleName'] . ' ' . $profileData['LastName'] . ' ' . $profileData['TitleAfter']; ?></h2>
                 <p><?php echo $profileData['Claim']; ?></p>
