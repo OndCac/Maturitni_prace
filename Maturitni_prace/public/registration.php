@@ -80,11 +80,11 @@
             <!-- id -- nutne mit sekvenci -->
 
             <label for="email">Email:</label>
-            <input id="email" type="email" name="email" required />
+            <input class="flex-container" id="email" type="email" name="email" required />
             <br/>
 
             <label for="password">Password:</label>
-            <input id="password" type="password" name="password" required />
+            <input class="flex-container" id="password" type="password" name="password" required />
             <br/>
 
             <input class="button" type="submit" value="Registrate">
