@@ -2,6 +2,7 @@
     session_start();
 
     $_SESSION["logged_in"] = false;
+    unset($_SESSION["role"]);
     header("Location: index.php");
 ?>
 

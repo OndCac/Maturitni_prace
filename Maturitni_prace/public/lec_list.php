@@ -61,6 +61,7 @@ while($row = mysqli_fetch_assoc($result)) {
             </ul>
         </nav>
     </header>
+
     <article>
         <?php
         echo "<table id='lecTable' class='display'>
@@ -83,10 +84,10 @@ while($row = mysqli_fetch_assoc($result)) {
         // echo '<div class=lec-list><a href="lecturer.php" onclick="lecturerId(' . $profileData["UUID"] . ')">' . $profileData["FirstName"] . ' ' . $profileData["MiddleName"] . ' ' . $profileData["LastName"] . '</a></div>';
             
         ?>
-
         <script>
             $(document).ready( function () {
                 $('#lecTable').DataTable();
+                $('article').after("<footer>Vytvořil Ondřej Cacek 2024 </footer>");
             } );
                 
             $( '#lecTable tbody tr' ).on( 'click', function() {
@@ -110,28 +111,7 @@ while($row = mysqli_fetch_assoc($result)) {
                 document.cookie = name + "=" +
                     value + ";" + expires + "; path=/";
             }
-                /*
-                let uuid = {"UUID": this.id}
-                let id = {
-                    "method": "POST",
-                    "headers": {
-                        "Content-Type": "applicaiton/json; charset=utf-8"
-                    },
-                    "body": JSON.stringify(uuid)
-                }
-
-                fetch("lecturer.php", id)
-
-                window.location.href = "lecturer.php";
-                */
         </script>
-            
-            
-        
     </article>
-    
-    <footer>
-        Vytvořil Ondřej Cacek 2024
-    </footer>
 </body>
 </html>

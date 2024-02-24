@@ -57,10 +57,8 @@ if (isset($_POST["uuid"])) {
     <script>
         $(document).ready( function () {
             $('#lecTable').DataTable();
-        } );
-        
-        $(document).ready( function () {
             $('#tagTable').DataTable();
+            $('article').after("<footer>Vytvořil Ondřej Cacek 2024 </footer>");
         } );
 
         // Function to create the cookie 
@@ -128,7 +126,7 @@ if (isset($_POST["uuid"])) {
 
         <button class="button" type="button" onclick="addLec()">Add Lecturer</button>
         <button class="button" type="button" onclick="createTag()">Create new Tag</button>
-
+        
         <?php
             echo "<table id='lecTable' class='display'>
                     <thead>
@@ -152,8 +150,8 @@ if (isset($_POST["uuid"])) {
                         <td><button onclick="deleteLec('.$profileData[$i]["UUID"].')" type="button">Delete</button></td>
                         </tr>';
             }
-            echo "</tbody>"; 
-            
+            echo "</tbody>";
+
             $sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
             $result = $con->query($sql1);
 
@@ -179,9 +177,5 @@ if (isset($_POST["uuid"])) {
             echo "</tbody>"; 
         ?>
     </article>
-
-    <footer>
-        Vytvořil Ondřej Cacek 2024
-    </footer>
 </body>
 </html>

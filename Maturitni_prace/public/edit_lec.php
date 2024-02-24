@@ -89,7 +89,7 @@ if (isset($_POST["FirstName"])) {
     </header>
     <article>
         <?php
-            echo '<form method="POST">
+            echo '<form method="POST" class="flex-container">
                     <input type="hidden" name="action" value="submited"/>
                     <!-- id -- nutne mit sekvenci -->
 
