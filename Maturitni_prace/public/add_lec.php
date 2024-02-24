@@ -149,7 +149,7 @@ if (isset($_POST["FirstName"])) {
     </article>
 
     <footer>
-
+        Vytvořil Ondřej Cacek 2024
     </footer>
 </body>
 </html>

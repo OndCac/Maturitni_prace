@@ -92,7 +92,7 @@
     </article>
     
     <footer>
-
+        Vytvořil Ondřej Cacek 2024
     </footer>    
 </body>
 </html>

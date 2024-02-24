@@ -68,3 +68,11 @@ if (isset($_POST["NewTag"])) {
                     <input class="button" type="submit" value="Create">
                     
                     </form>';
+        ?>
+    </article>
+
+    <footer>
+        Vytvořil Ondřej Cacek 2024
+    </footer>
+</body>
+</html>

@@ -131,7 +131,7 @@ while($row = mysqli_fetch_assoc($result)) {
     </article>
     
     <footer>
-
+        Vytvořil Ondřej Cacek 2024
     </footer>
 </body>
 </html>

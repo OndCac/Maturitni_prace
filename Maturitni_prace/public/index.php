@@ -44,14 +44,19 @@
             <h1>Homepage</h1>
         </header>
         <section>
+            <h2>
+                O nás
+            </h2>
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, quisquam repellendus! Nihil delectus quasi cumque odit vel totam labore officiis enim ullam optio? Exercitationem quae distinctio mollitia nemo nobis ad!
+                Teacher digital Agency je mladá společnost zaměřená na vyhledávání špičkových odborníků z řad učitelů, lektorů a tutorů. 
+                Sestavujeme exkluzivní databázi těchto specialistů, abychom mohli efektivně propojovat klienty s ideálními odborníky dle jejich přání a specifických potřeb. 
+                Vaše vzdělávání je u nás v dobrých rukou.
             </p>
         </section>
     </article>
 
     <footer>
-
+        Vytvořil Ondřej Cacek 2024
     </footer>
 </body>
 </html>
