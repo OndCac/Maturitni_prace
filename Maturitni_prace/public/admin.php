@@ -125,10 +125,11 @@ if (isset($_POST["uuid"])) {
     <article>
 
         <button class="button" type="button" onclick="addLec()">Add Lecturer</button>
+        <br>
         <button class="button" type="button" onclick="createTag()">Create new Tag</button>
         
         <?php
-            echo "<table id='lecTable' class='display'>
+            echo "</br></br></br><table id='lecTable' class='display'>
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -150,7 +151,7 @@ if (isset($_POST["uuid"])) {
                         <td><button onclick="deleteLec('.$profileData[$i]["UUID"].')" type="button">Delete</button></td>
                         </tr>';
             }
-            echo "</tbody>";
+            echo "</tbody></table></br></br>";
 
             $sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
             $result = $con->query($sql1);
@@ -160,7 +161,7 @@ if (isset($_POST["uuid"])) {
                 $Tag[] = $row;
             }
 
-            echo "<table id='tagTable' class='display'>
+            echo "<table id='tagTable' class='display' styles='margin-top:15px'>
                     <thead>
                         <tr>
                             <th>Tag Name</th>
@@ -174,7 +175,7 @@ if (isset($_POST["uuid"])) {
                         <td><button onclick="deleteTag('.$Tag[$i]["UUID"].')" type="button">Delete</button></td>
                         </tr>';
             }
-            echo "</tbody>"; 
+            echo "</tbody></table>"; 
         ?>
     </article>
 </body>

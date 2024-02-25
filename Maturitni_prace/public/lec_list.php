@@ -3,6 +3,10 @@
     define("BR", "<br/>\n");
 
     session_start();
+
+    if (!$_SESSION["logged_in"]) {
+        header("Location: index.php");
+    }
 ?>
 
 <?php
@@ -27,7 +31,6 @@ while($row = mysqli_fetch_assoc($result)) {
     // skladame objekt pro zaznam z DB
     $profileData[] = $row;
 }
-
 
 // Fetch and convert to JSON
 //$profileData = json_decode($result);

@@ -34,20 +34,19 @@
 
     <article>
         <?php
-        if (isset($_POST["email"])) {
-            echo "formular odeslan".BR;
+        if (isset($_POST["email"]) && $_POST["password1"] == $_POST["password2"]) {
             /* echo "user:".$_POST["user"].BR;
             echo "email:".$_POST["email"].BR;
             echo "password:".$_POST["password"].BR;
             echo BR.BR; */
 
-            $hash = hash('sha256', $_POST["password"]);
+            $hash = hash('sha256', $_POST["password1"]);
 
-            $sql = "insert into User(UserName, Email, Password, role)\n"
-            ."values('".$_POST["user"]."', '".$_POST["email"]
+            $sql1 = "insert into User(Email, Password, role)\n"
+            ."values('".$_POST["email"]
                 ."', '".$hash."', 'host')";
-            
-            echo $sql.BR;
+
+            $sql2 = "select email from user where email = '" . $_POST['email'] . "'";
             
             $host="localhost";
             $port=3306;
@@ -59,19 +58,27 @@
             $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
                 or die ('Could not connect to the database server' . mysqli_connect_error());
 
+            $result = mysqli_fetch_assoc($con->query($sql2));
+
             // vykonani insertu
-            if(mysqli_query($con, $sql)) {
-                echo "success".BR;
-                $_SESSION["logged_in"] = true;
-                $_SESSION["role"] = "host";
-                header("Location: index.php");
+            if($result["email"] == $_POST['email']) {
+                echo "Account with this email already exists.";
             } else {
-                echo "error:".mysqli_error($con).BR;
+                if(mysqli_query($con, $sql1)) {
+                    echo "success".BR;
+                    $_SESSION["logged_in"] = true;
+                    $_SESSION["role"] = "host";
+                    header("Location: index.php");
+                } else {
+                    echo "error:".mysqli_error($con).BR;
+                }
             }
 
             $con->close();
 
             exit();
+        } elseif (isset($_POST["email"]) && $_POST["password1"] != $_POST["password2"]) {
+            echo "You did not repeat the password correctly";
         }
         ?>
 
@@ -83,8 +90,12 @@
             <input class="flex-container" id="email" type="email" name="email" required />
             <br/>
 
-            <label for="password">Password:</label>
-            <input class="flex-container" id="password" type="password" name="password" required />
+            <label for="password1">Password:</label>
+            <input class="flex-container" id="password1" type="password" name="password1" required />
+            <br/>
+
+            <label for="password2">Password again:</label>
+            <input class="flex-container" id="password2" type="password" name="password2" required />
             <br/>
 
             <input class="button" type="submit" value="Registrate">
