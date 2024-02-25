@@ -88,6 +88,7 @@ if (!$con->query($sql)) {
         <script>
             $(document).ready( function () {
                 $('#tagTable').DataTable();
+                $('article').after("<footer>Vytvořil Ondřej Cacek 2024 </footer>");
             } );
 
             // Function to create the cookie 
@@ -118,9 +119,5 @@ if (!$con->query($sql)) {
             
         </script>
     </article>
-
-    <footer>
-        Vytvořil Ondřej Cacek 2024
-    </footer>
 </body>
 </html>
