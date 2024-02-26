@@ -47,20 +47,20 @@ while($row = mysqli_fetch_assoc($result)) {
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
     <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
-    <title>TdA: List of Lecturers</title>
+    <title>TdA: Seznam lektorů</title>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
                 <?php
                 if ($_SESSION["role"] == "admin") {
-                            echo "<li><a href='admin.php'>Administration</a></li>";
+                            echo "<li><a href='admin.php'>Administrace</a></li>";
                         }
                 ?>
-                <li class="aktivni"><a href="lec_list.php">Lecturers</a></li>
-                <li class='logout-button'><a href='logout.php'>Log out</a></li>
+                <li class="aktivni"><a href="lec_list.php">Lektoři</a></li>
+                <li class='logout-button'><a href='logout.php'>Odhlásit se</a></li>
             </ul>
         </nav>
     </header>
@@ -70,9 +70,9 @@ while($row = mysqli_fetch_assoc($result)) {
         echo "<table id='lecTable' class='display'>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Location</th>
-                        <th>Price per hour (CZK)</th>
+                        <th>Jméno</th>
+                        <th>Poloha</th>
+                        <th>Cena za hodinu (CZK)</th>
                     </tr>
                 </thead>
                 <tbody>";

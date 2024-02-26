@@ -53,7 +53,7 @@ if (isset($_POST["uuid"])) {
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
     <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
-    <title>TdA: List of Lecturers</title>
+    <title>TdA: Administrace</title>
     <script>
         $(document).ready( function () {
             $('#lecTable').DataTable();
@@ -113,10 +113,10 @@ if (isset($_POST["uuid"])) {
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
-                <li class="aktivni"><a href='admin.php'>Administration</a></li>
-                <li><a href="lec_list.php">Lecturers</a></li>
-                <li class='logout-button'><a href='logout.php'>Log out</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
+                <li class="aktivni"><a href='admin.php'>Administrace</a></li>
+                <li><a href="lec_list.php">Lektoři</a></li>
+                <li class='logout-button'><a href='logout.php'>Odhlásit se</a></li>
             </ul>
         </nav>
         
@@ -124,20 +124,20 @@ if (isset($_POST["uuid"])) {
 
     <article>
 
-        <button class="button" type="button" onclick="addLec()">Add Lecturer</button>
+        <button class="button" type="button" onclick="addLec()">Přidat lektora</button>
         <br>
-        <button class="button" type="button" onclick="createTag()">Create new Tag</button>
+        <button class="button" type="button" onclick="createTag()">Nový Tag</button>
         
         <?php
             echo "</br></br></br><table id='lecTable' class='display'>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Location</th>
-                            <th>Price per hour (CZK)</th>
-                            <th>Show</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th>Jméno</th>
+                            <th>Poloha</th>
+                            <th>Cena za hodinu (CZK)</th>
+                            <th>Ukázat</th>
+                            <th>Změnit</th>
+                            <th>Smazat</th>
                         </tr>
                     </thead>
                     <tbody>";
@@ -164,15 +164,15 @@ if (isset($_POST["uuid"])) {
             echo "<table id='tagTable' class='display' styles='margin-top:15px'>
                     <thead>
                         <tr>
-                            <th>Tag Name</th>
-                            <th>Delete Tag</th>
+                            <th>Tag</th>
+                            <th>Smazat Tag</th>
                         </tr>
                     </thead>
                     <tbody>";
             for ($i=0; $i < count($Tag); $i++) { 
                 echo '<tr>
                         <td>' . $Tag[$i]["Name"] . '</td>
-                        <td><button onclick="deleteTag('.$Tag[$i]["UUID"].')" type="button">Delete</button></td>
+                        <td><button onclick="deleteTag('.$Tag[$i]["UUID"].')" type="button">Smazat</button></td>
                         </tr>';
             }
             echo "</tbody></table>"; 

@@ -49,22 +49,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" type="text/css" />
-    <title>TeacherDigitalAgency: Login</title>
+    <title>TDA: Přihlášení</title>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
                 <?php 
                     if ($_SESSION["logged_in"]) {
-                        echo "<li><a href='lec_list.php'>Lecturers</a></li>";
-                        echo "<li><input class='logout-button' type='submit' value='Log out'>Log out</li>";
+                        echo "<li><a href='lec_list.php'>Lektoři</a></li>";
+                        echo "<li><input class='logout-button' type='submit' value='Log out'>Odhlásit se</li>";
                     } else {
-                        echo '<li><a href="registration.php">Registration</a></li>';
+                        echo '<li><a href="registration.php">Registrace</a></li>';
                     }
                 ?>
-                <li class="aktivni"><a href="login.php">Login</a></li>
+                <li class="aktivni"><a href="login.php">Přihlásit se</a></li>
             </ul>
         </nav>
     </header>
@@ -78,11 +78,11 @@
             <input class="flex-container" id="email" type="email" name="email" required />
             <br/>
 
-            <label for="password">Password:</label>
+            <label for="password">Heslo:</label>
             <input class="flex-container" id="password" type="password" name="password" required />
             <br/>
 
-            <input class="button" type="submit" value="Log In">
+            <input class="button" type="submit" value="Přihlásit se">
         </form>
     </article>
 

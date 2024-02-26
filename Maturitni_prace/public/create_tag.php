@@ -41,23 +41,29 @@ if (isset($_POST["NewTag"])) {
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
     <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
-    <title>TdA: List of Lecturers</title>
+    <title>TdA: Nový Tag</title>
+    <script>
+        function back() {
+            window.location.href = "admin.php";
+        }
+    </script>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
-                <li class="aktivni"><a href='admin.php'>Administration</a></li>
-                <li><a href="lec_list.php">Lecturers</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
+                <li class="aktivni"><a href='admin.php'>Administrace</a></li>
+                <li><a href="lec_list.php">Lektoři</a></li>
                 <li class='logout-button'><a href='logout.php'>Log out</a></li>
             </ul>
         </nav>
     </header>
     <article>
         <?php
-            echo '
-                    <form method="POST">
+            echo '  <button class="button" type="button" onclick="back()">Zpět na seznam lektorů</button><br><br><br>
+
+                    <form method="POST" class="flex-container">
                     <input type="hidden" name="action" value="submited"/>
                     <!-- id -- nutne mit sekvenci -->
 
@@ -65,7 +71,7 @@ if (isset($_POST["NewTag"])) {
                     <input id="NewTag" name="NewTag" />
                     <br/>
 
-                    <input class="button" type="submit" value="Create">
+                    <input class="button" type="submit" value="Vytvořit">
                     
                     </form>';
         ?>

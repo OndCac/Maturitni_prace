@@ -33,16 +33,16 @@ if (!$con->query($sql)) {
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
     <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
-    <title>TdA: List of Lecturers</title>
+    <title>TdA: Připojit Tagy</title>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
-                <li class="aktivni"><a href='admin.php'>Administration</a></li>
-                <li><a href="lec_list.php">Lecturers</a></li>
-                <li class='logout-button'><a href='logout.php'>Log out</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
+                <li class="aktivni"><a href='admin.php'>Administrace</a></li>
+                <li><a href="lec_list.php">Lektoři</a></li>
+                <li class='logout-button'><a href='logout.php'>Odhlásit se</a></li>
             </ul>
         </nav>
     </header>
@@ -71,19 +71,19 @@ if (!$con->query($sql)) {
             echo "<table id='tagTable' class='display'>
                     <thead>
                         <tr>
-                            <th>Tag Name</th>
-                            <th>Add Tag</th>
+                            <th>Tag</th>
+                            <th>Přidat Tag</th>
                         </tr>
                     </thead>
                     <tbody>";
             for ($i=0; $i < count($Tag); $i++) { 
                 echo '<tr>
                         <td>' . $Tag[$i]["Name"] . '</td>
-                        <td><button onclick="addTag('.$Tag[$i]["UUID"].')" type="button">Add</button></td>
+                        <td><button onclick="addTag('.$Tag[$i]["UUID"].')" type="button">Přidat</button></td>
                         </tr>';
             }
             echo "</tbody>
-                    <button onclick='finish()' type='button' class='button'>Continue</button>"; 
+                    <button onclick='finish()' type='button' class='button'>Pokračovat</button>"; 
         ?>
         <script>
             $(document).ready( function () {

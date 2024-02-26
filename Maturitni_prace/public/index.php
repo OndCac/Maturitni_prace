@@ -21,18 +21,18 @@
     <header>
         <nav>
             <ul>
-                <li class="aktivni"><a href="index.php">Homepage</a></li>
+                <li class="aktivni"><a href="index.php">Domovská stránka</a></li>
                 <?php 
                     if ($_SESSION["logged_in"]) {
                         if ($_SESSION["role"] == "admin") {
-                            echo "<li><a href='admin.php'>Administration</a></li>";
+                            echo "<li><a href='admin.php'>Administrace</a></li>";
                         }
                         
-                        echo "<li><a href='lec_list.php'>Lecturers</a></li>"
-                        . "<li class='logout-button'><a href='logout.php'>Log out</a></li>";
+                        echo "<li><a href='lec_list.php'>Lektoři</a></li>"
+                        . "<li class='logout-button'><a href='logout.php'>Odhlásit se</a></li>";
                     } else {
-                        echo '<li><a href="registration.php">Registration</a></li>' 
-                        . '<li><a href="login.php">Login</a></li>';
+                        echo '<li><a href="registration.php">Registrace</a></li>' 
+                        . '<li><a href="login.php">Přihlásit se</a></li>';
                     }
                 ?>
             </ul>
@@ -41,7 +41,7 @@
     
     <article>
         <header>
-            <h1>Homepage</h1>
+            <h1>Domovská stránka</h1>
         </header>
         <section>
             <h2>

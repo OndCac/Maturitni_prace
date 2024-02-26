@@ -56,26 +56,34 @@ if (!isset($tags)) {
     <!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="styles.css" type="text/css" />
     <!-- <script src="js/bootstrap.js"></script> -->
-    <title>TdA: Lecturer</title>
+    <title>TdA: Lektor</title>
+    <script>
+        function back() {
+            window.location.href = "lec_list.php";
+        }
+    </script>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
                 <?php
                 if ($_SESSION["role"] == "admin") {
-                    echo "<li><a href='admin.php'>Administration</a></li>";
+                    echo "<li><a href='admin.php'>Administrace</a></li>";
                 }
                 ?>
-                <li><a href="lec_list.php">Lecturers</a></li>
-                <li class='logout-button'><a href='logout.php'>Log out</a></li>
+                <li><a href="lec_list.php">Lektoři</a></li>
+                <li class='logout-button'><a href='logout.php'>Odhlásit se</a></li>
             </ul>
         </nav>
     </header>
 
     <article>
-        <h1>Profile Information</h1>
+        <button class="button" type="button" onclick="back()">Zpět na seznam lektorů</button>
+
+        <h1>Profil lektora</h1>
+
         <div class="flex-container">
             <!-- Display Profile Information -->
             <div class="img">
@@ -90,7 +98,7 @@ if (!isset($tags)) {
 
             <!-- Display Tags -->
             <div class="prof-tc">
-                <h3>Tags:</h3>
+                <h3>Tagy:</h3>
                 <ul>
                     <?php foreach ($tags as $tag): ?>
                         <li><span><?php echo $tag["Name"]; ?></span></li>
@@ -100,9 +108,9 @@ if (!isset($tags)) {
 
             <!-- Display Contact Information -->
             <div class="prof-tc">
-                <h3>Contact:</h3>
+                <h3>Kontakty:</h3>
                 <ul>
-                    <li>Telephone: <?php echo $profileData['TelephoneNumber']; ?></p>
+                    <li>Telefon: <?php echo $profileData['TelephoneNumber']; ?></p>
                     <li>Email: <?php echo $profileData['Email']; ?></p>
                 </ul>
             </div>

@@ -74,9 +74,13 @@ modify column Password char(64) not null;
 alter table user
 add role enum("host", "admin");
 
+alter table user drop column username;
+
 CREATE TABLE if not exists ProfPic (
    UUID INT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
    LecturerUUID int not null,
    unique (name)
 );
+
+-- drop table if exists profpic;

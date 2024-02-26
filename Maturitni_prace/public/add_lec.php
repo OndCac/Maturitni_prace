@@ -76,47 +76,53 @@ if (isset($_POST["FirstName"])) {
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
     <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
-    <title>TdA: List of Lecturers</title>
+    <title>TdA: Vytvořit lektora</title>
+    <script>
+        function back() {
+            window.location.href = "admin.php";
+        }
+    </script>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
-                <li class="aktivni"><a href='admin.php'>Administration</a></li>
-                <li><a href="lec_list.php">Lecturers</a></li>
-                <li class='logout-button'><a href='logout.php'>Log out</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
+                <li class="aktivni"><a href='admin.php'>Administrace</a></li>
+                <li><a href="lec_list.php">Lektoři</a></li>
+                <li class='logout-button'><a href='logout.php'>Odhlásit se</a></li>
             </ul>
         </nav>
-    </header>
+    </header> 
+    
     <article>
         <?php
-            echo '
+            echo '  <button class="button" type="button" onclick="back()">Zpět na seznam lektorů</button><br><br><br>
                     <form method="POST" class="flex-container">
                     <input type="hidden" name="action" value="submited"/>
                     <!-- id -- nutne mit sekvenci -->
 
-                    <label for="TitleBefore">Title before:</label>
+                    <label for="TitleBefore">Titul před jménem:</label>
                     <input id="TitleBefore" name="TitleBefore" />
                     <br/>
 
-                    <label for="FirstName">*First Name:</label>
+                    <label for="FirstName">*Křestní jméno:</label>
                     <input id="FirstName" name="FirstName" required />
                     <br/>
 
-                    <label for="MiddleName">Middle Name:</label>
+                    <label for="MiddleName">Další jméno:</label>
                     <input id="MiddleName" name="MiddleName" />
                     <br/>
 
-                    <label for="LastName">*Last Name:</label>
+                    <label for="LastName">*Příjmení:</label>
                     <input id="LastName" name="LastName" required />
                     <br/>
 
-                    <label for="TitleAfter">Title After:</label>
+                    <label for="TitleAfter">Titul za jménem:</label>
                     <input id="TitleAfter" name="TitleAfter" />
                     <br/>
 
-                    <label for="Location">*Location:</label>
+                    <label for="Location">*Poloha:</label>
                     <input id="Location" name="Location" required />
                     <br/>
 
@@ -130,7 +136,7 @@ if (isset($_POST["FirstName"])) {
                     </textarea>
                     <br/>
 
-                    <label for="PricePerHour">*Price Per Hour (CZK):</label>
+                    <label for="PricePerHour">*Cena za hodinu (CZK):</label>
                     <input id="PricePerHour" name="PricePerHour" type="number" required />
                     <br/>
 
@@ -138,11 +144,14 @@ if (isset($_POST["FirstName"])) {
                     <input id="Email" name="Email" required />
                     <br/>
 
-                    <label for="TelephoneNumber">Phone number:</label>
+                    <label for="TelephoneNumber">Telefonní číslo:</label>
                     <input id="TelephoneNumber" name="TelephoneNumber" />
                     <br/>
+
+                    <div>(Povinné údaje označeny *)</div>
+                    <br/>
                     
-                    <input class="button" type="submit" value="Create">
+                    <input class="button" type="submit" value="Vytvořit">
                     
                     </form>';
         ?>

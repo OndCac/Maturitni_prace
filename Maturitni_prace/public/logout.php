@@ -19,19 +19,19 @@
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
-                <li class='logout-button'><a href='logout.php'>Log out</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
+                <li class='logout-button'><a href='logout.php'>Odhlásit se</a></li>
             </ul>
         </nav>
     </header>
     
     <article>
         <header>
-            <h1>Log out</h1>
+            <h1>Odhlásit se</h1>
         </header>
         <section>
             <p>
-                You have successfully logged out. Return to the <a href="index.php">Homepage</a>.
+                Úspěšně jste se odhlásili. Vraťte se na <a href="index.php">Domovskou stránku</a>.
             </p>
         </section>
     </article>

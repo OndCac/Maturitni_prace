@@ -12,20 +12,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css" type="text/css" />
-    <title>TdA: Registration</title>
+    <title>TdA: Registrace</title>
 </head>
 
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
-                <li class="aktivni"><a href="registration.php">Registration</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
+                <li class="aktivni"><a href="registration.php">Registrace</a></li>
                 <?php 
                     if ($_SESSION["logged_in"]) {
-                        echo "<li><a href='lec_list.php'>Lecturers</a></li>";
+                        echo "<li><a href='lec_list.php'>Lektoři</a></li>";
                     } else {
-                        echo '<li><a href="login.php">Login</a></li>';
+                        echo '<li><a href="login.php">Přihlásit se</a></li>';
                     }
                 ?>
             </ul>
@@ -62,7 +62,7 @@
 
             // vykonani insertu
             if($result["email"] == $_POST['email']) {
-                echo "Account with this email already exists.";
+                echo "Účet s tímto emailem již existuje.";
             } else {
                 if(mysqli_query($con, $sql1)) {
                     echo "success".BR;
@@ -78,7 +78,7 @@
 
             exit();
         } elseif (isset($_POST["email"]) && $_POST["password1"] != $_POST["password2"]) {
-            echo "You did not repeat the password correctly";
+            echo "Nezopakovali jste heslo správně";
         }
         ?>
 
@@ -90,15 +90,15 @@
             <input class="flex-container" id="email" type="email" name="email" required />
             <br/>
 
-            <label for="password1">Password:</label>
+            <label for="password1">Heslo:</label>
             <input class="flex-container" id="password1" type="password" name="password1" required />
             <br/>
 
-            <label for="password2">Password again:</label>
+            <label for="password2">Heslo znovu:</label>
             <input class="flex-container" id="password2" type="password" name="password2" required />
             <br/>
 
-            <input class="button" type="submit" value="Registrate">
+            <input class="button" type="submit" value="Zaregistrovat">
         </form>
     </article>
     

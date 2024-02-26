@@ -44,19 +44,19 @@ define ("UPLOAD_DIR", "../database/images");
     <header>
         <nav>
             <ul>
-                <li><a href="index.php">Homepage</a></li>
-                <li class="aktivni"><a href='admin.php'>Administration</a></li>
-                <li><a href="lec_list.php">Lecturers</a></li>
-                <li class='logout-button'><a href='logout.php'>Log out</a></li>
+                <li><a href="index.php">Domovská stránka</a></li>
+                <li class="aktivni"><a href='admin.php'>Administrace</a></li>
+                <li><a href="lec_list.php">Lektoři</a></li>
+                <li class='logout-button'><a href='logout.php'>Odhlásit se</a></li>
             </ul>
         </nav>
     </header>
 
     <article>
-        <button class="button" type="button" onclick="finish()">Finish</button>
+        <button class="button" type="button" onclick="finish()">Dokončit</button>
 
         <form method="post" enctype="multipart/form-data">
-            <label for="img">Select file (name: firstname_secondname.img)</label>
+            <label for="img">Vyberte soubor (název ve tvaru: krestni_prijmeni.img)</label>
             <input id="img" type="file" name="image" />
             <input type="submit" name="submit" value="Upload" />
         </form>
@@ -68,7 +68,7 @@ define ("UPLOAD_DIR", "../database/images");
                 // presun souboru z docasneho uloziste
                 if (!move_uploaded_file($upload_file['tmp_name'], UPLOAD_DIR."/$upload_file_name"))
                 {
-                    die("cannot move uploaded file to ".UPLOAD_DIR);
+                    die("cannot upoad file");
                 }
 
                 $sql1 = "INSERT INTO ProfPic (name, LecturerUUID) VALUES ('$upload_file_name', " . $uuid['uuid'] . ")";
