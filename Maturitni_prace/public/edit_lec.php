@@ -56,6 +56,10 @@ if (isset($_POST["FirstName"])) {
             . $_POST['Email'] . BR 
             . $_POST['TelephoneNumber'] . BR 
             . "<li><a href='admin.php'>Administration</a></li>";
+
+            $_SESSION['LecEmail'] = $_POST['Email'];
+    
+            header("Location: edit_tag.php");
     }
 
     $con->close();
@@ -75,6 +79,11 @@ if (isset($_POST["FirstName"])) {
     <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
     <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
     <title>TdA: Seznam lektorů</title>
+    <script>
+        function back() {
+            window.location.href = "admin.php";
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -89,7 +98,8 @@ if (isset($_POST["FirstName"])) {
     </header>
     <article>
         <?php
-            echo '<form method="POST" class="flex-container">
+            echo '<button class="button" type="button" onclick="back()">Zpět na seznam lektorů</button><br><br><br>
+                <form method="POST" class="flex-container">
                     <input type="hidden" name="action" value="submited"/>
                     <!-- id -- nutne mit sekvenci -->
 
@@ -144,7 +154,7 @@ if (isset($_POST["FirstName"])) {
                     <div>(Povinné údaje označeny *)</div>
                     <br/>
 
-                    <input class="button" type="submit" value="Potvrdit změny">
+                    <input class="button" type="submit" value="Pokračovat">
                     
                     </form>';
         ?>

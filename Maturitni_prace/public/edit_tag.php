@@ -21,6 +21,24 @@ if (!$con->query($sql)) {
 } else {
     $uuid = mysqli_fetch_assoc($con->query($sql));
 }
+
+$sql4 = "select t.*, lt.taguuid
+from lecturertag lt left join tag t on lt.taguuid = t.uuid
+where lt.lectureruuid = '" . $uuid['uuid'] . "';";
+
+if (!$con->query($sql4)) {
+    echo "error:".mysqli_error($con).BR;
+} else {
+    $result = $con->query($sql4);
+    while($row = mysqli_fetch_assoc($result)) {
+        // skladame objekt pro zaznam z DB
+        $Tag2[] = $row;
+    }
+}
+
+if (!isset($Tag2)) {
+    $Tag2 = array();
+}
 ?>
 
 <!DOCTYPE html>
@@ -48,27 +66,42 @@ if (!$con->query($sql)) {
     </header>
 
     <article>
+        
         <?php
             $sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
             $result = $con->query($sql1);
 
             while($row = mysqli_fetch_assoc($result)) {
                 // skladame objekt pro zaznam z DB
-                $Tag[] = $row;
+                $Tag1[] = $row;
             }
 
-            if (isset($_COOKIE["id"])) {
-                    $lecTag = $_COOKIE["id"];
+            if (isset($_COOKIE["set"])) {
+                $lecTag = $_COOKIE["set"];
+
+                $sql5 = "SELECT TagUUID FROM LecturerTag WHERE LecturerUUID = " . $uuid['uuid'] . " AND TagUUID = $lecTag";
+
+                $tagcheck = mysqli_fetch_assoc($con->query($sql5));
+                //$tagcheck['TagUUID'] != $lecTag
+                if (!isset($tagcheck['TagUUID'])){
                     $sql2 = "INSERT INTO LecturerTag (LecturerUUID, TagUUID)
                         VALUES (" . $uuid['uuid'] . ", " . $lecTag . " )";
-                    
+
                     $con->query($sql2)
                         or die ("error:".mysqli_error($con));
-                    
                 }
+            }
+
+            if (isset($_COOKIE["unset"])) {
+                $lecTag = $_COOKIE["unset"];
+                $sql3 = "DELETE FROM LecturerTag WHERE LecturerUUID = " . $uuid['uuid'] . " AND TagUUID = $lecTag";
+                
+                $con->query($sql3)
+                    or die ("error:".mysqli_error($con));
+            }
 
 
-            echo "<table id='tagTable' class='display'>
+            echo "<table id='tagTable1' class='display'>
                     <thead>
                         <tr>
                             <th>Tag</th>
@@ -76,18 +109,36 @@ if (!$con->query($sql)) {
                         </tr>
                     </thead>
                     <tbody>";
-            for ($i=0; $i < count($Tag); $i++) { 
+            for ($i=0; $i < count($Tag1); $i++) { 
                 echo '<tr>
-                        <td>' . $Tag[$i]["Name"] . '</td>
-                        <td><button onclick="addTag('.$Tag[$i]["UUID"].')" type="button">Přidat</button></td>
+                        <td>' . $Tag1[$i]["Name"] . '</td>
+                        <td><button onclick="addTag('.$Tag1[$i]["UUID"].')" type="button">Přidat</button></td>
                         </tr>';
             }
-            echo "</tbody></table>
-                    <button onclick='finish()' type='button' class='button'>Pokračovat</button>"; 
+
+            echo "</tbody></table>";
+                    
+            echo "<br><br><br><table id='tagTable2' class='display'>
+            <thead>
+                <tr>
+                    <th>Navolené Tagy</th>
+                    <th>Odstranit Tag</th>
+                </tr>
+            </thead>
+            <tbody>";
+            for ($i=0; $i < count($Tag2); $i++) { 
+                echo '<tr>
+                        <td>' . $Tag2[$i]["Name"] . '</td>
+                        <td><button onclick="removeTag('.$Tag2[$i]["UUID"].')" type="button">Odstranit</button></td>
+                        </tr>';
+            }
+            echo "</tbody></table><br><br><br>
+            <button onclick='finish()' type='button' class='button'>Pokračovat</button>";
         ?>
         <script>
             $(document).ready( function () {
-                $('#tagTable').DataTable();
+                $('#tagTable1').DataTable();
+                $('#tagTable2').DataTable();
                 $('article').after("<footer>Vytvořil Ondřej Cacek 2024 </footer>");
             } );
 
@@ -109,12 +160,17 @@ if (!$con->query($sql)) {
             }
 
             function addTag(id) {
-                createCookie("id", id, 0.1);
-                window.location.href = "add_tag.php";
+                createCookie("set", id, 0.1);
+                window.location.href = "edit_tag.php";
+            }
+
+            function removeTag(id) {
+                createCookie("unset", id, 0.1);
+                window.location.href = "edit_tag.php";
             }
 
             function finish() {
-                window.location.href = "add_pic.php";
+                window.location.href = "edit_pic.php";
             }
             
         </script>
