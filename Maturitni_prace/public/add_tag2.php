@@ -21,56 +21,6 @@ if (!$con->query($sql)) {
 } else {
     $uuid = mysqli_fetch_assoc($con->query($sql));
 }
-
-if (isset($_COOKIE["set"])) {
-    $lecTag = $_COOKIE["set"];
-
-    $sql5 = "SELECT TagUUID FROM LecturerTag WHERE LecturerUUID = " . $uuid['uuid'] . " AND TagUUID = $lecTag";
-
-    $tagcheck = mysqli_fetch_assoc($con->query($sql5));
-    //$tagcheck['TagUUID'] != $lecTag
-    if (!isset($tagcheck['TagUUID'])){
-        $sql2 = "INSERT INTO LecturerTag (LecturerUUID, TagUUID)
-            VALUES (" . $uuid['uuid'] . ", " . $lecTag . " )";
-
-        $con->query($sql2)
-            or die ("error:".mysqli_error($con));
-    }
-}
-
-if (isset($_COOKIE["unset"])) {
-    $lecTag = $_COOKIE["unset"];
-    $sql3 = "DELETE FROM LecturerTag WHERE LecturerUUID = " . $uuid['uuid'] . " AND TagUUID = $lecTag";
-    
-    $con->query($sql3)
-        or die ("error:".mysqli_error($con));
-}
-
-$sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
-$result = $con->query($sql1);
-
-while($row = mysqli_fetch_assoc($result)) {
-    // skladame objekt pro zaznam z DB
-    $Tag1[] = $row;
-}
-
-$sql4 = "select t.*, lt.taguuid
-from lecturertag lt left join tag t on lt.taguuid = t.uuid
-where lt.lectureruuid = '" . $uuid['uuid'] . "';";
-
-if (!$con->query($sql4)) {
-    echo "error:".mysqli_error($con).BR;
-} else {
-    $result = $con->query($sql4);
-    while($row = mysqli_fetch_assoc($result)) {
-        // skladame objekt pro zaznam z DB
-        $Tag2[] = $row;
-    }
-}
-
-if (!isset($Tag2)) {
-    $Tag2 = array();
-}
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +33,7 @@ if (!isset($Tag2)) {
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
     <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
-    <title>TdA: Změnit Tagy</title>
+    <title>TdA: Připojit Tagy</title>
 </head>
 <body>
     <header>
@@ -98,9 +48,43 @@ if (!isset($Tag2)) {
     </header>
 
     <article>
-        
         <?php
-            echo "<table id='tagTable1' class='display'>
+            $sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
+            $result = $con->query($sql1);
+
+            while($row = mysqli_fetch_assoc($result)) {
+                // skladame objekt pro zaznam z DB
+                $Tag[] = $row;
+            }
+
+            /*if (isset($_COOKIE["id"])) {
+                    $lecTag = $_COOKIE["id"];
+                    $sql2 = "INSERT INTO LecturerTag (LecturerUUID, TagUUID)
+                        VALUES (" . $uuid['uuid'] . ", " . $lecTag . " )";
+                    
+                    $con->query($sql2)
+                        or die ("error:".mysqli_error($con));
+                    
+            }*/
+
+            if (isset($_COOKIE["id"])) {
+                $lecTag = $_COOKIE["id"];
+            
+                $sql3 = "SELECT TagUUID FROM LecturerTag WHERE LecturerUUID = " . $uuid['uuid'] . " AND TagUUID = $lecTag";
+            
+                $tagcheck = mysqli_fetch_assoc($con->query($sql3));
+                //$tagcheck['TagUUID'] != $lecTag
+                if (!isset($tagcheck['TagUUID'])){
+                    $sql2 = "INSERT INTO LecturerTag (LecturerUUID, TagUUID)
+                        VALUES (" . $uuid['uuid'] . ", " . $lecTag . " )";
+            
+                    $con->query($sql2)
+                        or die ("error:".mysqli_error($con));
+                }
+            }
+
+
+            echo "<table id='tagTable' class='display'>
                     <thead>
                         <tr>
                             <th>Tag</th>
@@ -108,36 +92,18 @@ if (!isset($Tag2)) {
                         </tr>
                     </thead>
                     <tbody>";
-            for ($i=0; $i < count($Tag1); $i++) { 
+            for ($i=0; $i < count($Tag); $i++) { 
                 echo '<tr>
-                        <td>' . $Tag1[$i]["Name"] . '</td>
-                        <td><button onclick="addTag('.$Tag1[$i]["UUID"].')" type="button">Přidat</button></td>
+                        <td>' . $Tag[$i]["Name"] . '</td>
+                        <td><button onclick="addTag('.$Tag[$i]["UUID"].')" type="button">Přidat</button></td>
                         </tr>';
             }
-
-            echo "</tbody></table>";
-                    
-            echo "<br><br><br><table id='tagTable2' class='display'>
-            <thead>
-                <tr>
-                    <th>Navolené Tagy</th>
-                    <th>Odstranit Tag</th>
-                </tr>
-            </thead>
-            <tbody>";
-            for ($i=0; $i < count($Tag2); $i++) { 
-                echo '<tr>
-                        <td>' . $Tag2[$i]["Name"] . '</td>
-                        <td><button onclick="removeTag('.$Tag2[$i]["UUID"].')" type="button">Odstranit</button></td>
-                        </tr>';
-            }
-            echo "</tbody></table><br><br><br>
-            <button onclick='finish()' type='button' class='button'>Pokračovat</button>";
+            echo "</tbody></table>
+                    <button onclick='finish()' type='button' class='button'>Pokračovat</button>"; 
         ?>
         <script>
             $(document).ready( function () {
-                $('#tagTable1').DataTable();
-                $('#tagTable2').DataTable();
+                $('#tagTable').DataTable();
                 $('article').after("<footer>Vytvořil Ondřej Cacek 2024 </footer>");
             } );
 
@@ -159,12 +125,7 @@ if (!isset($Tag2)) {
             }
 
             function addTag(id) {
-                createCookie("set", id, 0.1);
-                window.location.href = "add_tag.php";
-            }
-
-            function removeTag(id) {
-                createCookie("unset", id, 0.1);
+                createCookie("id", id, 0.1);
                 window.location.href = "add_tag.php";
             }
 

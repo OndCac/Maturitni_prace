@@ -24,6 +24,16 @@ if (!$con->query($sql)) {
 }
 
 define ("UPLOAD_DIR", "../database/images");
+
+$sql2 = "SELECT name FROM ProfPic WHERE LecturerUUID = " . $uuid['uuid'];
+$fname = mysqli_fetch_assoc($con->query($sql2));
+
+if (isset($_COOKIE["delete"])) {
+    unlink("../database/images/" . $fname["name"]);
+    $sql3 = "DELETE FROM TeacherDigitalAgency.ProfPic WHERE LecturerUUID = " . $uuid['uuid'] . ";";
+    $con->query($sql3);
+    unset($fname["name"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,8 +44,31 @@ define ("UPLOAD_DIR", "../database/images");
     <link rel="stylesheet" href="styles.css" type="text/css"/>
     <title>TdA: List of Lecturers</title>
     <script>
+        
+        // Function to create the cookie 
+        function createCookie(name, value, minutes) {
+            let expires;
+        
+            if (minutes) {
+                let date = new Date();
+                date.setTime(date.getTime() + (minutes * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            }
+            else {
+                expires = "";
+            }
+        
+            document.cookie = name + "=" +
+                value + ";" + expires + "; path=/";
+        }
+
         function finish() {
             window.location.href = "admin.php";
+        }
+
+        function deletePic(id) {
+                createCookie("delete", id, 0.1);
+                window.location.href = "edit_pic.php";
         }
     </script>
 </head>
@@ -53,13 +86,25 @@ define ("UPLOAD_DIR", "../database/images");
     </header>
 
     <article>
-        <button class="button" type="button" onclick="finish()">Dokončit</button>
+        <button class="button" type="button" onclick="finish()">Dokončit</button><br>
+        
+        <?php
+            if (!empty($fname["name"])) {
+                echo '<img width="200" src="'.UPLOAD_DIR.'/'.$fname["name"].'"><br>
+                        <button class="button" type="button" onclick="deletePic('.$uuid["uuid"].')">Odstranit obrázek</button><br>';
+            } else {
+                echo 'Nebyl zvolen žádný obrázek <br><br>
+                    Vyberte soubor (název ve tvaru: krestni_prijmeni.img)
+                    <form method="post" enctype="multipart/form-data">
+                        <label class="pic-button"  for="img">Vybrat</label>
+                        <input id="img" type="file" name="image" /><br>
+                        <input class="pic-button" type="submit" name="submit" value="Upload" />
+                    </form>';
+            }
 
-        <form method="post" enctype="multipart/form-data">
-            <label for="img">Vyberte soubor (název ve tvaru: krestni_prijmeni.img)</label>
-            <input id="img" type="file" name="image" />
-            <input type="submit" name="submit" value="Upload" />
-        </form>
+            
+        ?>
+
 
         <?php
             if (isset($_FILES['image'])) {

@@ -53,12 +53,13 @@ define ("UPLOAD_DIR", "../database/images");
     </header>
 
     <article>
-        <button class="button" type="button" onclick="finish()">Dokončit</button>
+        <button class="button" type="button" onclick="finish()">Dokončit</button><br><br>
 
+        Vyberte soubor (název ve tvaru: krestni_prijmeni.img)
         <form method="post" enctype="multipart/form-data">
-            <label for="img">Vyberte soubor (název ve tvaru: krestni_prijmeni.img)</label>
-            <input id="img" type="file" name="image" />
-            <input type="submit" name="submit" value="Upload" />
+            <label class="pic-button"  for="img">Vybrat</label>
+            <input id="img" type="file" name="image" /><br>
+            <input class="pic-button" type="submit" name="submit" value="Upload" />
         </form>
 
         <?php

@@ -164,6 +164,7 @@ footer a {
     border-radius: 25px;
     top: 15px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 
@@ -171,6 +172,7 @@ footer a {
     background: #FECB2E;
     padding: 10px 20px;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .kontakt-tlacitko:hover,
@@ -211,4 +213,26 @@ footer a {
 .flex-container {
     display: flex;
     flex-direction: column;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.pic-button {
+    border: 1px solid;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+
+    background: #414042;
+    color: #FFFFFF;
+    font-size: 0.9em;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 12px 25px;
+    border-radius: 25px;
+    top: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }

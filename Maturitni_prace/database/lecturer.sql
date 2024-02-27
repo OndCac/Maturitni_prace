@@ -69,12 +69,13 @@ CREATE TABLE if not exists User (
 );
 
 alter table user
+drop column UserName;
+
+alter table user
 modify column Password char(64) not null;
 
 alter table user
 add role enum("host", "admin");
-
-alter table user drop column username;
 
 CREATE TABLE if not exists ProfPic (
    UUID INT AUTO_INCREMENT PRIMARY KEY,
@@ -82,5 +83,3 @@ CREATE TABLE if not exists ProfPic (
    LecturerUUID int not null,
    unique (name)
 );
-
--- drop table if exists profpic;

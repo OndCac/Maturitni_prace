@@ -22,6 +22,38 @@ if (!$con->query($sql)) {
     $uuid = mysqli_fetch_assoc($con->query($sql));
 }
 
+if (isset($_COOKIE["set"])) {
+    $lecTag = $_COOKIE["set"];
+
+    $sql5 = "SELECT TagUUID FROM LecturerTag WHERE LecturerUUID = " . $uuid['uuid'] . " AND TagUUID = $lecTag";
+
+    $tagcheck = mysqli_fetch_assoc($con->query($sql5));
+    //$tagcheck['TagUUID'] != $lecTag
+    if (!isset($tagcheck['TagUUID'])){
+        $sql2 = "INSERT INTO LecturerTag (LecturerUUID, TagUUID)
+            VALUES (" . $uuid['uuid'] . ", " . $lecTag . " )";
+
+        $con->query($sql2)
+            or die ("error:".mysqli_error($con));
+    }
+}
+
+if (isset($_COOKIE["unset"])) {
+    $lecTag = $_COOKIE["unset"];
+    $sql3 = "DELETE FROM LecturerTag WHERE LecturerUUID = " . $uuid['uuid'] . " AND TagUUID = $lecTag";
+    
+    $con->query($sql3)
+        or die ("error:".mysqli_error($con));
+}
+
+$sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
+$result = $con->query($sql1);
+
+while($row = mysqli_fetch_assoc($result)) {
+    // skladame objekt pro zaznam z DB
+    $Tag1[] = $row;
+}
+
 $sql4 = "select t.*, lt.taguuid
 from lecturertag lt left join tag t on lt.taguuid = t.uuid
 where lt.lectureruuid = '" . $uuid['uuid'] . "';";
@@ -51,7 +83,7 @@ if (!isset($Tag2)) {
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="DataTables/DataTables-1.13.8/css/jquery.dataTables.min.css" />
     <script src="DataTables/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
-    <title>TdA: Připojit Tagy</title>
+    <title>TdA: Změnit Tagy</title>
 </head>
 <body>
     <header>
@@ -68,39 +100,6 @@ if (!isset($Tag2)) {
     <article>
         
         <?php
-            $sql1 = "SELECT * FROM TeacherDigitalAgency.Tag";
-            $result = $con->query($sql1);
-
-            while($row = mysqli_fetch_assoc($result)) {
-                // skladame objekt pro zaznam z DB
-                $Tag1[] = $row;
-            }
-
-            if (isset($_COOKIE["set"])) {
-                $lecTag = $_COOKIE["set"];
-
-                $sql5 = "SELECT TagUUID FROM LecturerTag WHERE LecturerUUID = " . $uuid['uuid'] . " AND TagUUID = $lecTag";
-
-                $tagcheck = mysqli_fetch_assoc($con->query($sql5));
-                //$tagcheck['TagUUID'] != $lecTag
-                if (!isset($tagcheck['TagUUID'])){
-                    $sql2 = "INSERT INTO LecturerTag (LecturerUUID, TagUUID)
-                        VALUES (" . $uuid['uuid'] . ", " . $lecTag . " )";
-
-                    $con->query($sql2)
-                        or die ("error:".mysqli_error($con));
-                }
-            }
-
-            if (isset($_COOKIE["unset"])) {
-                $lecTag = $_COOKIE["unset"];
-                $sql3 = "DELETE FROM LecturerTag WHERE LecturerUUID = " . $uuid['uuid'] . " AND TagUUID = $lecTag";
-                
-                $con->query($sql3)
-                    or die ("error:".mysqli_error($con));
-            }
-
-
             echo "<table id='tagTable1' class='display'>
                     <thead>
                         <tr>
