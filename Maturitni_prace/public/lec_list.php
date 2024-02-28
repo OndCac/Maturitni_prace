@@ -77,7 +77,7 @@ while($row = mysqli_fetch_assoc($result)) {
                 </thead>
                 <tbody>";
         for ($i=0; $i < count($profileData); $i++) { 
-            echo '<tr id="' . $profileData[$i]["UUID"] . '">
+            echo '<tr class="lec-list" id="' . $profileData[$i]["UUID"] . '">
                     <td>' . $profileData[$i]["TitleBefore"] . ' ' . $profileData[$i]["FirstName"] . ' ' . $profileData[$i]["MiddleName"] . ' ' . $profileData[$i]["LastName"] . ' ' . $profileData[$i]["TitleAfter"] . '</td>
                     <td>' . $profileData[$i]["Location"] . '</td>
                     <td>' . $profileData[$i]["PricePerHour"] . '</td>

@@ -191,7 +191,7 @@ footer a {
 }
 
 .lec-list {
-    border: solid #333333;
+    cursor: pointer;
 }
 
 .lec-list a {
@@ -223,8 +223,6 @@ input[type="file"] {
     border: 1px solid;
     display: inline-block;
     padding: 6px 12px;
-    cursor: pointer;
-
     background: #414042;
     color: #FFFFFF;
     font-size: 0.9em;
