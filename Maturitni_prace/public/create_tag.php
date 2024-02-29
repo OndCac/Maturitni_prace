@@ -24,7 +24,7 @@ if (isset($_POST["NewTag"])) {
     $tagcheck = mysqli_fetch_assoc($con->query($sql2));
     //$tagcheck['TagUUID'] != $lecTag
     if (!isset($tagcheck['Name'])){
-        $sql = "INSERT INTO Tag (Name) Values ('" . $_POST['NewTag'] . ")')";
+        $sql = "INSERT INTO Tag (Name) Values ('" . $_POST['NewTag'] . "')";
 
         $con->query($sql)
             or die ("error:".mysqli_error($con));
