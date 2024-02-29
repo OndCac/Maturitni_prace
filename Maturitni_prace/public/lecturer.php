@@ -106,6 +106,11 @@ if (!isset($tags)) {
                 </ul>
             </div>
 
+            <div class="prof-tc">
+                <h3>Cena:</h3>
+                <?php echo $profileData['PricePerHour']; ?> Kč/hodina
+            </div>
+
             <!-- Display Contact Information -->
             <div class="prof-tc">
                 <h3>Kontakty:</h3>
