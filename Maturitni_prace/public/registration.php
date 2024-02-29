@@ -81,25 +81,27 @@
             echo "Nezopakovali jste heslo správně";
         }
         ?>
-
+        <div class="login">
+        <h2>Registrace</h2>
         <form method="POST"><!-- action="neco.php", method="GET" -->
             <input type="hidden" name="action" value="submited"/>
             <!-- id -- nutne mit sekvenci -->
-
-            <label for="email">Email:</label>
-            <input class="flex-container" id="email" type="email" name="email" required />
+            <div class="flex-container">
+            <!-- <label for="email">Email:</label> -->
+            <input placeholder="Email" id="email" type="email" name="email" required />
             <br/>
 
-            <label for="password1">Heslo:</label>
-            <input class="flex-container" id="password1" type="password" name="password1" required />
+            <!-- <label for="password1">Heslo:</label> -->
+            <input placeholder="Heslo" id="password1" type="password" name="password1" required />
             <br/>
 
-            <label for="password2">Heslo znovu:</label>
-            <input class="flex-container" id="password2" type="password" name="password2" required />
+            <!-- <label for="password2">Heslo znovu:</label> -->
+            <input placeholder="Heslo znovu" id="password2" type="password" name="password2" required />
             <br/>
-
+            </div>
             <input class="button" type="submit" value="Zaregistrovat">
         </form>
+        </div>
     </article>
     
     <footer>

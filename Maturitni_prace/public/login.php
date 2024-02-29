@@ -70,20 +70,23 @@
     </header>
     
     <article>
+        <div class="login">
+        <h2>Přihlášení</h2>
         <form method="POST"><!-- action="neco.php", method="GET" -->
             <input type="hidden" name="action" value="submited"/>
             <!-- id -- nutne mit sekvenci -->
 
-            <label for="email">Email:</label>
-            <input class="flex-container" id="email" type="email" name="email" required />
+            <!-- <label for="email">Email:</label> -->
+            <input class="flex-container" placeholder="Email" id="email" type="email" name="email" required />
             <br/>
 
-            <label for="password">Heslo:</label>
-            <input class="flex-container" id="password" type="password" name="password" required />
+            <!-- <label for="password">Heslo:</label> -->
+            <input class="flex-container" placeholder="Heslo" id="password" type="password" name="password" required />
             <br/>
 
             <input class="button" type="submit" value="Přihlásit se">
         </form>
+        </div>
     </article>
 
     <footer>

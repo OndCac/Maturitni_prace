@@ -49,6 +49,9 @@ CREATE TABLE IF NOT EXISTS Tag (
     Name VARCHAR(50)
 );
 
+alter table Tag
+	add unique (Name);
+
 -- Create the LecturerTag table
 CREATE TABLE if not exists LecturerTag (
     LecturerUUID INT not null,
@@ -63,7 +66,7 @@ CREATE TABLE if not exists LecturerTag (
 
 CREATE TABLE if not exists User (
     UUID int not null auto_increment primary KEY ,
-    UserName VARCHAR(50) not null,
+    -- UserName VARCHAR(50) not null,
     Email VARCHAR(50) not null unique,
     Password VARCHAR(50) not null
 );

@@ -234,3 +234,9 @@ input[type="file"] {
     margin-bottom: 10px;
     cursor: pointer;
 }
+
+.login {
+    border: #333333 solid;
+    border-radius: 20px;
+    padding: 0px 20px 20px 20px;
+}

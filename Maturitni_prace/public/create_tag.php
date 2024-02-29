@@ -19,14 +19,19 @@ if (isset($_POST["NewTag"])) {
     $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
         or die ('Could not connect to the database server' . mysqli_connect_error());
 
-    $sql = "INSERT INTO Tag (Name) Values ('" . $_POST['NewTag'] . ")')";
+    $sql2 = "SELECT Name FROM Tag WHERE Name = '" . $_POST['NewTag'] . "'";
 
-    if ($con->query($sql)) {
-        $con->close();
+    $tagcheck = mysqli_fetch_assoc($con->query($sql2));
+    //$tagcheck['TagUUID'] != $lecTag
+    if (!isset($tagcheck['Name'])){
+        $sql = "INSERT INTO Tag (Name) Values ('" . $_POST['NewTag'] . ")')";
+
+        $con->query($sql)
+            or die ("error:".mysqli_error($con));
 
         header("Location: admin.php");
     } else {
-        echo "error:".mysqli_error($con);
+        echo "<script>alert('Tento tag již existuje')</script>";
     }
 }
 ?>
