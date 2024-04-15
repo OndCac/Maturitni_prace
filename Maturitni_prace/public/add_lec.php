@@ -96,8 +96,7 @@ if (isset($_POST["FirstName"])) {
     </header> 
     
     <article>
-        <?php
-            echo '  <button class="button" type="button" onclick="back()">Zpět na seznam lektorů</button><br><br><br>
+        <button class="button" type="button" onclick="back()">Zpět na seznam lektorů</button><br><br><br>
                     <form method="POST" class="flex-container">
                     <input type="hidden" name="action" value="submited"/>
                     <!-- id -- nutne mit sekvenci -->
@@ -153,8 +152,7 @@ if (isset($_POST["FirstName"])) {
                     
                     <input class="button" type="submit" value="Vytvořit">
                     
-                    </form>';
-        ?>
+                    </form>
     </article>
 
     <footer>

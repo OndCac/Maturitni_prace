@@ -26,11 +26,11 @@ CREATE TABLE IF NOT EXISTS Lecturer (
     -- FOREIGN KEY (PRIMARY_CONTACT_UUID) REFERENCES Contact(UUID)
 );
 
-/*
+
 alter table Lecturer
-drop column PictureURL;
-add TelephoneNumber varchar(20);
-add Email varchar(50) not null;*/
+-- drop column PictureURL;
+add TelephoneNumber varchar(20),
+add Email varchar(50) not null;
 
 -- Create the Contact table
 /*CREATE TABLE IF NOT EXISTS Contact (
@@ -41,7 +41,7 @@ add Email varchar(50) not null;*/
 	FOREIGN KEY (LecturerUUID) REFERENCES Lecturer(UUID)
 );*/
 
-drop table Contact;
+-- drop table Contact;
 
 -- Create the Tag table
 CREATE TABLE IF NOT EXISTS Tag (
@@ -66,7 +66,7 @@ CREATE TABLE if not exists LecturerTag (
 
 CREATE TABLE if not exists User (
     UUID int not null auto_increment primary KEY ,
-    -- UserName VARCHAR(50) not null,
+    UserName VARCHAR(50) not null,
     Email VARCHAR(50) not null unique,
     Password VARCHAR(50) not null
 );
