@@ -17,20 +17,15 @@ CREATE TABLE IF NOT EXISTS Lecturer (
     MiddleName VARCHAR(50),
     LastName VARCHAR(50) not null,
     TitleAfter VARCHAR(10),
-    PictureURL VARCHAR(255),
     Location VARCHAR(50) not null,
     Claim TEXT not null,
     Bio TEXT not null,
-    PricePerHour DECIMAL(10, 2) not null
+    PricePerHour DECIMAL(10, 2) not null,
+    TelephoneNumber varchar(20),
+    Email varchar(50) not null unique
     -- PRIMARY_CONTACT_UUID INT,
     -- FOREIGN KEY (PRIMARY_CONTACT_UUID) REFERENCES Contact(UUID)
 );
-
-/*
-alter table Lecturer
-drop column PictureURL;
-add TelephoneNumber varchar(20);
-add Email varchar(50) not null;*/
 
 -- Create the Contact table
 /*CREATE TABLE IF NOT EXISTS Contact (
@@ -41,7 +36,7 @@ add Email varchar(50) not null;*/
 	FOREIGN KEY (LecturerUUID) REFERENCES Lecturer(UUID)
 );*/
 
-drop table Contact;
+-- drop table Contact;
 
 -- Create the Tag table
 CREATE TABLE IF NOT EXISTS Tag (
@@ -63,23 +58,15 @@ CREATE TABLE if not exists LecturerTag (
 
 CREATE TABLE if not exists User (
     UUID int not null auto_increment primary KEY ,
-    UserName VARCHAR(50) not null,
-    Email VARCHAR(50) not null unique,
-    Password VARCHAR(50) not null
+    Email varchar(50) not null unique,
+    Password char(64) not null,
+    role enum("host", "admin") not null
 );
 
-alter table user
-drop column UserName;
-
-alter table user
-modify column Password char(64) not null;
-
-alter table user
-add role enum("host", "admin");
 
 CREATE TABLE if not exists ProfPic (
    UUID INT AUTO_INCREMENT PRIMARY KEY,
-   name VARCHAR(255) NOT NULL,
-   LecturerUUID int not null,
-   unique (name)
+   Name VARCHAR(255) NOT NULL,
+   LecturerUUID int not null unique,
+   unique (Name)
 );
