@@ -37,12 +37,16 @@ CREATE TABLE IF NOT EXISTS Lecturer (
 );*/
 
 -- drop table Contact;
+-- drop table Contact;
 
 -- Create the Tag table
 CREATE TABLE IF NOT EXISTS Tag (
     UUID INT not null auto_increment PRIMARY KEY,
     Name VARCHAR(50)
 );
+
+alter table Tag
+	add unique (Name);
 
 -- Create the LecturerTag table
 CREATE TABLE if not exists LecturerTag (
