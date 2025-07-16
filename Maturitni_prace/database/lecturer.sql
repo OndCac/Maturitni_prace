@@ -4,7 +4,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- drop database if exists TeacherDigitalAgency;
+drop database if exists TeacherDigitalAgency;
 -- Create the database
 CREATE DATABASE IF NOT EXISTS TeacherDigitalAgency;
 USE TeacherDigitalAgency;
@@ -23,30 +23,15 @@ CREATE TABLE IF NOT EXISTS Lecturer (
     PricePerHour DECIMAL(10, 2) not null,
     TelephoneNumber varchar(20),
     Email varchar(50) not null unique
-    -- PRIMARY_CONTACT_UUID INT,
-    -- FOREIGN KEY (PRIMARY_CONTACT_UUID) REFERENCES Contact(UUID)
 );
 
--- Create the Contact table
-/*CREATE TABLE IF NOT EXISTS Contact (
-    UUID INT not null auto_increment PRIMARY KEY,
-    LecturerUUID INT not null,
-    TelephoneNumbers JSON,
-    Emails JSON not null,
-	FOREIGN KEY (LecturerUUID) REFERENCES Lecturer(UUID)
-);*/
-
--- drop table Contact;
--- drop table Contact;
 
 -- Create the Tag table
 CREATE TABLE IF NOT EXISTS Tag (
     UUID INT not null auto_increment PRIMARY KEY,
-    Name VARCHAR(50)
+    Name VARCHAR(50) not null unique
 );
 
-alter table Tag
-	add unique (Name);
 
 -- Create the LecturerTag table
 CREATE TABLE if not exists LecturerTag (
@@ -56,6 +41,7 @@ CREATE TABLE if not exists LecturerTag (
     FOREIGN KEY (LecturerUUID) REFERENCES Lecturer(UUID),
     FOREIGN KEY (TagUUID) REFERENCES Tag(UUID)
 );
+
 
 -- Create the User table
 -- admin password = 12345
@@ -67,6 +53,8 @@ CREATE TABLE if not exists User (
     role enum("host", "admin") not null
 );
 
+
+-- Create the ProfPic table
 
 CREATE TABLE if not exists ProfPic (
    UUID INT AUTO_INCREMENT PRIMARY KEY,
